@@ -54,7 +54,6 @@ fun nameSelect(): String {
 
 fun intro() {
     println("Hello mighty hero!")
-    println("Welcome to the dungeon game")
-    println("please enter your name: ")
-
+    println("Welcome to the dungeon game.")
+    println("Please enter your name: ")
 }

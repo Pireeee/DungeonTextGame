@@ -13,7 +13,5 @@ fun main() {
     val commandHandler = CommandHandler(playerService, dungeonService)
     val player = playerService.createPlayer()
 
-
-    println("Hello World!")
 }
 
