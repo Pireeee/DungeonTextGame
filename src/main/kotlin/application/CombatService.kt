@@ -1,5 +1,7 @@
+import fr.entities.BaseEntity
+
 class CombatService {
-    fun attack(attacker, defender) {
+    fun attack(attacker:BaseEntity, defender:BaseEntity) {
         // recupere l'attaque de l'attaquant et la defense du defenseur
         val attack = attacker.totalStrength
         val defense = defender.totalDefense
@@ -11,15 +13,15 @@ class CombatService {
         }
     }
 
-    fun regen(target, amount) {
+    fun regen(target:BaseEntity, amount:Int) {
         target.totalHealth += amount
     }
 
-    fun defend(target, amount) {
+    fun defend(target:BaseEntity, amount:Int) {
         target.totalDefense += amount
     }
 
-    fun damage(target, amount) {
+    fun damage(target:BaseEntity, amount:Int) {
         target.totalHealth -= amount
     }
 }
