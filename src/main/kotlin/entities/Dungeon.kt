@@ -1,7 +1,15 @@
 package entities
 
-data class Dungeon(
-    val rooms: Array<Room>
-)
+class Dungeon(number: Int, size: Int){
+
+    val rooms = generateRooms(number, size)
+
+    init {
+        require(number > 0 && size > 0) { "Dungeon dimensions must be positive" }
+    }
+    private fun generateRooms(number: Int,size: Int ): Array<Room> {
+        return Array(number) { Room(size) }
+    }
+}
 
 

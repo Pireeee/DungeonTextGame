@@ -1,26 +1,14 @@
 package application
 
-import entities.Cell
 import entities.Dungeon
+import entities.Monster
 import entities.Room
+import fr.entities.*
+import kotlin.random.Random
 
 class DungeonService {
 
-    fun generateDungeon(rooms: Int): Dungeon {
-        // Logique de génération de donjon
-        // create one room for now
-        val rooms = Array(rooms) { createRoom(5) }
-        // create the dungeon
-        val dungeon = Dungeon(
-            rooms
-        )
-        return dungeon
-    }
-
-    fun createRoom(size: Int): Room {
-        // Logique de création de salle
-        return Room(size, size, Array(size) { Array(size) { Cell.Empty } })
-    }
+    var DUNGEON_SIZE = 5
 
     fun displayDungeon(dungeon: Dungeon) {
         for (room in dungeon.rooms) {
@@ -30,16 +18,10 @@ class DungeonService {
     }
 
     fun displayRoom(room: Room){
-        for (y in 0 until room.height) {
-            for (x in 0 until room.width) {
+        for (y in 0 until room.size) {
+            for (x in 0 until room.size) {
                 val cell = room.getCell(x, y)
-                val symbol = when (cell) {
-                    is Cell.Empty -> "."
-                    is Cell.MonsterCell -> "M"
-                    is Cell.Treasure -> "T"
-                    is Cell.PlayerCell -> "P"
-                    else -> " "
-                }
+                val symbol = cell?.displayChar
                 print(symbol)
             }
             println()
