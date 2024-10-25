@@ -1,5 +1,6 @@
 package tests
 import application.checkName
+import application.setPlayerClass
 import entities.Player
 import entities.PlayerClass
 import kotlin.test.Test
@@ -46,6 +47,16 @@ class PlayerTest {
     @Test
     fun `invalid player name (too short)`() {
         assertFalse { checkName("A") }
+    }
+
+    @Test
+    fun `valid player class`() {
+        assert(setPlayerClass("rogue") == (PlayerClass.ROGUE))
+    }
+
+    @Test
+    fun `invalid player class`() {
+        assert(setPlayerClass("bard") == null)
     }
 }
 
