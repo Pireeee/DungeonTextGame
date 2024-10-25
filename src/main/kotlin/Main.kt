@@ -7,7 +7,6 @@ import entities.Monster
 import entities.Player
 import entities.PlayerClass
 import user_interface.CommandHandler
-import user_interface.displayDungeon
 
 fun main() {
     // Game initialization
@@ -20,12 +19,14 @@ fun main() {
     val player = playerService.createPlayer()
     val dungeon = dungeonService.generateDungeon(5)
 
-    dungeon.Rooms.get(0).setCell(0, 0, Cell.PlayerCell(player))
-    dungeon.Rooms.get(0).setCell(2, 2, Cell.MonsterCell(Monster("Goblin", 10, 5, 20, 0)))
-    dungeon.Rooms.get(0).setCell(1, 3, Cell.Treasure("Gold Coin", 100))
+    dungeon.rooms.get(0).setCell(0, 0, Cell.PlayerCell(player))
+    dungeon.rooms.get(0).setCell(2, 2, Cell.MonsterCell(Monster("Goblin", 10, 5, 20, 0)))
+    dungeon.rooms.get(0).setCell(1, 3, Cell.Treasure("Gold Coin", 100))
+
 
     // Display the dungeon map
-    displayDungeon(dungeon)
+    println("see the entire dungeon map :")
+    dungeonService.displayDungeon(dungeon)
     
 }
 

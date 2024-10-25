@@ -1,7 +1,7 @@
 package entities
 
 data class Dungeon(
-    val Rooms: Array<Room>
+    val rooms: Array<Room>
 )
 
 
