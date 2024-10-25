@@ -2,9 +2,9 @@ package fr
 
 import application.DungeonService
 import application.PlayerService
-import entities.Player
-import entities.PlayerClass
+import entities.*
 import user_interface.CommandHandler
+import user_interface.displayDungeon
 
 fun main() {
     // Game initialization
@@ -12,6 +12,14 @@ fun main() {
     val dungeonService = DungeonService()
     val commandHandler = CommandHandler(playerService, dungeonService)
     val player = playerService.createPlayer()
+
+    val dungeon = dungeonService.generateDungeon(5)
+
+    dungeon.setCell(2, 2, Cell.MonsterCell(Monster("Goblin", 10, 5, 20, 0)))
+    dungeon.setCell(1, 3, Cell.Treasure("Gold Coin", 100))
+
+    // Display the dungeon map
+    displayDungeon(dungeon)
 
 }
 
