@@ -15,7 +15,7 @@ class Player(
     override var totalHealth: Int = baseHealth,
     override var totalMana: Int = baseMana,
     var inventory: MutableList<Item> = mutableListOf()
-): BaseEntity(name, totalStrength, totalDefense, totalHealth, totalMana)
+): BaseEntity
 
 
 enum class PlayerClass {
