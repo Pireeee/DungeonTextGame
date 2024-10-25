@@ -20,9 +20,9 @@ fun main() {
     val player = playerService.createPlayer()
     val dungeon = dungeonService.generateDungeon(5)
 
-    dungeon.setCell(0, 0, Cell.PlayerCell(player))
-    dungeon.setCell(2, 2, Cell.MonsterCell(Monster("Goblin", 10, 5, 20, 0)))
-    dungeon.setCell(1, 3, Cell.Treasure("Gold Coin", 100))
+    dungeon.Rooms.get(0).setCell(0, 0, Cell.PlayerCell(player))
+    dungeon.Rooms.get(0).setCell(2, 2, Cell.MonsterCell(Monster("Goblin", 10, 5, 20, 0)))
+    dungeon.Rooms.get(0).setCell(1, 3, Cell.Treasure("Gold Coin", 100))
 
     // Display the dungeon map
     displayDungeon(dungeon)
