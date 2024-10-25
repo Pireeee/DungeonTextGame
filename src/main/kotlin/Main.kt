@@ -10,6 +10,7 @@ import user_interface.CommandHandler
 
 fun main() {
     // Game initialization
+    intro()
     val playerService = PlayerService()
     val dungeonService = DungeonService()
     val commandHandler = CommandHandler(playerService, dungeonService)
@@ -30,3 +31,7 @@ fun main() {
     
 }
 
+fun intro() {
+    println("Hello mighty hero!")
+    println("Welcome to the dungeon game.")
+}
