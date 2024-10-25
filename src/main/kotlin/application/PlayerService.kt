@@ -48,7 +48,7 @@ fun setPlayerClass(input: String): PlayerClass? {
 fun nameSelect(): String {
     println("Please enter your name: ")
     var name = readLine() ?: "Hero"
-     while (!checkName(name)) {
+     if (!checkName(name)) {
          nameSelect();
      }
     return name
