@@ -27,4 +27,5 @@ sealed class Cell {
     object Empty : Cell()
     data class MonsterCell(val monster: Monster) : Cell()
     data class Treasure(val description: String, val value: Int) : Cell()
+    data class PlayerCell(val player: Player) : Cell()
 }

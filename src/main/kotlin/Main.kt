@@ -11,10 +11,13 @@ fun main() {
     val playerService = PlayerService()
     val dungeonService = DungeonService()
     val commandHandler = CommandHandler(playerService, dungeonService)
-    val player = playerService.createPlayer()
 
+    //Start the game loop
+    // Create player
+    val player = playerService.createPlayer()
     val dungeon = dungeonService.generateDungeon(5)
 
+    dungeon.setCell(0, 0, Cell.PlayerCell(player))
     dungeon.setCell(2, 2, Cell.MonsterCell(Monster("Goblin", 10, 5, 20, 0)))
     dungeon.setCell(1, 3, Cell.Treasure("Gold Coin", 100))
 
