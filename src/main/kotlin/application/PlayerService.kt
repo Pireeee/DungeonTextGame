@@ -17,31 +17,45 @@ class PlayerService {
     fun createPlayer(): Player {
         intro()
         val name = nameSelect()
+        //val playerClass = classSelect()
         val playerClass = classSelect()
         val player = Player(name, playerClass, 10, 5, 100, 10)
         println("Welcome ${player.name} the ${player.playerClass}! with stats: ${player.totalStrength} strength, ${player.totalDefense} defense, ${player.totalHealth} health, ${player.totalMana} mana.")
         return player
     }
+
+    private fun classSelect(): PlayerClass {
+        val validClasses = mutableSetOf<String>()
+        enumValues<PlayerClass>().forEach {
+
+            validClasses.add(it.name.toLowerCase())
+        }
+        println(validClasses)
+        println("Please choose your class: (${validClasses.joinToString(", ")})")
+        val playerclass = readLine()?.let { setPlayerClass(it) }
+        if ( playerclass != null) {
+            return playerclass
+        } else {
+            println("Invalid class")
+            return classSelect()
+        }
+    }
 }
 
-fun classSelect(): PlayerClass {
-    println("Please choose your class: (warrior, mage, rogue)")
-    val validClasses = setOf("warrior", "mage", "rogue")
-    var classInput: String?
-
-    do {
-        classInput = readLine()
-        if (classInput !in validClasses) {
-            println("$classInput ? Please choose your class between: (warrior, mage, rogue)")
-        }
-    } while (classInput !in validClasses)
-    val playerClass = when (classInput) {
-        "warrior" -> PlayerClass.WARRIOR
-        "mage" -> PlayerClass.MAGE
-        "rogue" -> PlayerClass.ROGUE
-        else -> PlayerClass.WARRIOR // This case will never be reached
+fun setPlayerClass(input: String): PlayerClass? {
+    val exists = PlayerClass.values().any { clazz ->
+        clazz.name.equals(input, ignoreCase = true)
     }
-    return playerClass
+
+    // If it doesn't exist, return null
+    if (!exists) {
+        return null
+    }
+
+    // If it exists, find and return the corresponding PlayerClass
+    return PlayerClass.values().find { clazz ->
+        clazz.name.equals(input, ignoreCase = true)
+    }
 }
 fun nameSelect(): String {
     println("Please enter your name: ")
