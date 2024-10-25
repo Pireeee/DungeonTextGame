@@ -63,5 +63,19 @@ class Room(val size: Int) {
         println() // Separate rooms with a blank line
     }
 
+    fun placePlayer(player: Player, x: Int = 0, y: Int = 0) {
+        setCell(x, y, PlayerCell(player))
+    }
+
+    fun removePlayer(x: Int, y: Int) {
+        setCell(x, y, EmptyCell())
+    }
+
+    fun movePlayer(player: Player, fromX: Int, fromY: Int, toX: Int, toY: Int) {
+        removePlayer(fromX, fromY)
+        placePlayer(player, toX, toY)
+    }
+
+
 }
 

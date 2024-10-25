@@ -25,7 +25,8 @@ class Treasure(val description: String, val value: Int) : Cell{
     override val displayChar: Char
         get() = 'T'
 }
-class PlayerCell(val player: Player) : Cell{
+
+class PlayerCell(val player: Player) : Cell {
     override val displayChar: Char
         get() = 'P'
 }
