@@ -79,5 +79,4 @@ fun checkName(name: String): Boolean {
 fun intro() {
     println("Hello mighty hero!")
     println("Welcome to the dungeon game.")
-    println("Please enter your name: ")
 }
