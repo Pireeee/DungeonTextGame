@@ -1,11 +1,18 @@
 package application
 
+import entities.Cell
 import entities.Dungeon
 
 class DungeonService {
-    fun generateDungeon(numberOfRooms: Int): Dungeon {
+
+    fun generateDungeon(gridSize: Int): Dungeon {
         // Logique de génération de donjon
-        return Dungeon(emptyList())
+        val dungeon = Dungeon(
+            width = gridSize,
+            height = gridSize,
+            grid = Array(gridSize) { Array(gridSize) { Cell.Empty } }
+        )
+        return dungeon
     }
 
 
