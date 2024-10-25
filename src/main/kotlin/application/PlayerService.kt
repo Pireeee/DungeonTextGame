@@ -9,7 +9,7 @@ class PlayerService {
         //val playerClass = classSelect()
         val playerClass = classSelect()
         val player = Player(name, playerClass, 10, 5, 100, 10)
-        println("Welcome ${player.name} the ${player.playerClass}! with stats: ${player.totalStrength} strength, ${player.totalDefense} defense, ${player.totalHealth} health, ${player.totalMana} mana.")
+        println("Welcome ${player.name} the ${player.playerClass}! your stats: ${player.totalStrength} strength, ${player.totalDefense} defense, ${player.totalHealth} health, ${player.totalMana} mana.")
         return player
     }
 
@@ -19,7 +19,6 @@ class PlayerService {
 
             validClasses.add(it.name.lowercase())
         }
-        println(validClasses)
         println("Please choose your class: (${validClasses.joinToString(", ")})")
         val playerclass = readLine()?.let { setPlayerClass(it) }
         if ( playerclass != null) {
