@@ -13,7 +13,7 @@ fun main() {
     val dungeonService = DungeonService()
     val commandHandler = CommandHandler(playerService, dungeonService)
     val player = playerService.createPlayer()
-    val monster1 = Monster.createMonster("Goblin", 5, 2, 10, 0)
+    //val monster1 = Monster.createMonster("Goblin", 5, 2, 10, 0)
     println("Welcome ${player.name} the ${player.playerClass}! with stats: ${player.totalStrength} strength, ${player.totalDefense} defense, ${player.totalHealth} health, ${player.totalMana} mana.")
 }
 
