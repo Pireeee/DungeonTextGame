@@ -29,8 +29,8 @@ class Room(val size: Int) {
 
         // Create a list of all possible coordinates
         val coordinates = mutableListOf<Pair<Int, Int>>()
-        for (x in 0 until size) {
-            for (y in 0 until size) {
+        for (x in 1 until size) {
+            for (y in 1 until size) {
                 coordinates.add(Pair(x, y))
             }
         }
