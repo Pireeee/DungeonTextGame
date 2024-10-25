@@ -2,6 +2,7 @@ package fr
 
 import application.DungeonService
 import application.PlayerService
+import entities.Cell
 import entities.Monster
 import entities.Player
 import entities.PlayerClass
@@ -14,9 +15,6 @@ fun main() {
     val dungeonService = DungeonService()
     val commandHandler = CommandHandler(playerService, dungeonService)
 
-    val monster1 = Monster.createMonster("Goblin", 5, 2, 10, 0)
-    println("Welcome ${player.name} the ${player.playerClass}! with stats: ${player.totalStrength} strength, ${player.totalDefense} defense, ${player.totalHealth} health, ${player.totalMana} mana.")
-
     //Start the game loop
     // Create player
     val player = playerService.createPlayer()
@@ -28,7 +26,6 @@ fun main() {
 
     // Display the dungeon map
     displayDungeon(dungeon)
-
     
 }
 

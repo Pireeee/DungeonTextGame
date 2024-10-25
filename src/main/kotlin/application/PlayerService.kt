@@ -18,7 +18,9 @@ class PlayerService {
         intro()
         val name = nameSelect()
         val playerClass = classSelect()
-        return Player(name, playerClass, 10, 5, 100, 10)
+        val player = Player(name, playerClass, 10, 5, 100, 10)
+        println("Welcome ${player.name} the ${player.playerClass}! with stats: ${player.totalStrength} strength, ${player.totalDefense} defense, ${player.totalHealth} health, ${player.totalMana} mana.")
+        return player
     }
 }
 
