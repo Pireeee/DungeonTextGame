@@ -1,18 +1,21 @@
 package tests
+import application.PlayerService
+import application.checkName
 import entities.Player
 import entities.PlayerClass
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class PlayerTest {
     val playerData = mapOf(
         "name" to "Link",
-        "strength" to 5,
-        "defense" to 5,
-        "health" to 100,
-        "mana" to 10,
+        "totalStrength" to 5,
+        "totalDefense" to 5,
+        "totalHealth" to 100,
+        "totalMana" to 10,
         "playerClass" to PlayerClass.WARRIOR
     )
     @Test
@@ -21,10 +24,10 @@ class PlayerTest {
         val player = Player(
             playerData["name"] as String,
             playerData["playerClass"] as PlayerClass,
-            playerData["strength"] as Int,
-            playerData["defense"] as Int,
-            playerData["health"] as Int,
-            playerData["mana"] as Int
+            playerData["totalStrength"] as Int,
+            playerData["totalDefense"] as Int,
+            playerData["totalHealth"] as Int,
+            playerData["totalMana"] as Int
         )
 
         playerData.forEach { (key, value) ->
@@ -39,11 +42,13 @@ class PlayerTest {
     }
 
     @Test
-    fun `invalid player name`() {
-        assertThrows<IllegalArgumentException> {
-            Player("J", PlayerClass.WARRIOR, 10, 5, 100, 10)
-        }
+    fun `invalid player name (too long)`() {
+        assertFalse{checkName("ThisNameIsTooLong")}
     }
-
     @Test
+    fun `invalid player name (too short)`() {
+        assertFalse { checkName("A") }
+    }
 }
+
+   

@@ -46,12 +46,20 @@ fun classSelect(): PlayerClass {
 fun nameSelect(): String {
     println("Please enter your name: ")
     var name = readLine() ?: "Hero"
-
-    while (name.length < 3 || name.length > 15) {
-        println("Name must be between 3 and 15 characters.")
-        name = readLine() ?: "Hero"
-    }
+     while (!checkName(name)) {
+         nameSelect();
+     }
     return name
+
+}
+
+fun checkName(name: String): Boolean {
+    if (name.length < 3 || name.length > 15) {
+        println("Name must be between 3 and 15 characters.")
+        return false
+    } else {
+        return true
+    }
 }
 
 fun intro() {
