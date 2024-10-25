@@ -21,11 +21,11 @@ class Room(val size: Int) {
         }
     }
 
-    fun generateGrid(size: Int): Array<Array<Cell>> {
+    private fun generateGrid(size: Int): Array<Array<Cell>> {
         val monsterCell = MonsterCell(Monster("Goblin", 10, 5, 20, 0))
         val treasureCell = Treasure("Gold Coin", 100)
         val doorCell = DoorCell()
-        val emptyCells:Array<Array<Cell>> = Array(size) { Array(size) { EmptyCell() } }
+        val emptyCells: Array<Array<Cell>> = Array(size) { Array(size) { EmptyCell() } }
 
         // Create a list of all possible coordinates
         val coordinates = mutableListOf<Pair<Int, Int>>()
@@ -35,8 +35,8 @@ class Room(val size: Int) {
             }
         }
 
-        // Shuffle the list to randomize the order
-        coordinates.shuffle(Random(System.currentTimeMillis()))
+        // Shuffle the list to randomize the order with a unique seed
+        coordinates.shuffle(Random(System.nanoTime()))
 
         // Place the special cells at the first few coordinates
         val (monsterX, monsterY) = coordinates[0]
