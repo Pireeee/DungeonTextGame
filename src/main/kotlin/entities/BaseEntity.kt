@@ -1,9 +1,9 @@
 package fr.entities
 
-data class BaseEntity (
-    val name: String,
-    var totalStrength: Int,
-    var totalDefense: Int,
-    var totalHealth: Int,
-    var totalMana: Int
+open class BaseEntity (
+    open val name: String,
+    open var totalStrength: Int,
+    open var totalDefense: Int,
+    open var totalHealth: Int,
+    open var totalMana: Int
 )

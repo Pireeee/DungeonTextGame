@@ -44,4 +44,6 @@ class PlayerTest {
             Player("J", PlayerClass.WARRIOR, 10, 5, 100, 10)
         }
     }
+
+    @Test
 }

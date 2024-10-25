@@ -1,20 +1,21 @@
 package entities
 
+import fr.entities.BaseEntity
 import fr.entities.Item
 
-data class Player(
-    val name: String,
+class Player(
+    override val name: String,
     val playerClass: PlayerClass,
-    var baseStrength: Int,
-    var baseDefense: Int,
-    var baseHealth: Int,
-    var baseMana: Int,
-    var totalStrength: Int = baseStrength,
-    var totalDefense: Int = baseDefense,
-    var totalHealth: Int = baseHealth,
-    var totalMana: Int = baseMana,
+    val baseStrength: Int,
+    val baseDefense: Int,
+    val baseHealth: Int,
+    val baseMana: Int,
+    override var totalStrength: Int = baseStrength,
+    override var totalDefense: Int = baseDefense,
+    override var totalHealth: Int = baseHealth,
+    override var totalMana: Int = baseMana,
     var inventory: MutableList<Item> = mutableListOf()
-)
+): BaseEntity(name, totalStrength, totalDefense, totalHealth, totalMana)
 
 
 enum class PlayerClass {
