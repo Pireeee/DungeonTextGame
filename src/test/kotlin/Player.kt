@@ -1,9 +1,7 @@
 package tests
-import application.PlayerService
 import application.checkName
 import entities.Player
 import entities.PlayerClass
-import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
