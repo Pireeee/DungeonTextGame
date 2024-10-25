@@ -10,6 +10,12 @@ class Dungeon(number: Int, size: Int){
     private fun generateRooms(number: Int,size: Int ): Array<Room> {
         return Array(number) { Room(size) }
     }
+
+    fun display(){
+        for (room in rooms) {
+            room.display()
+        }
+    }
 }
 
 

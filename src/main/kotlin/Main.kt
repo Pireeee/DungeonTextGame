@@ -1,6 +1,5 @@
 package fr
 
-import application.DungeonService
 import application.PlayerService
 import entities.Dungeon
 import entities.Monster
@@ -12,8 +11,7 @@ fun main() {
     // Game initialization
     intro()
     val playerService = PlayerService()
-    val dungeonService = DungeonService()
-    val commandHandler = CommandHandler(playerService, dungeonService)
+    val commandHandler = CommandHandler(playerService)
 
     //Start the game loop
     // Create player
@@ -22,7 +20,7 @@ fun main() {
 
     // Display the dungeon map
     println("see the entire dungeon map :")
-    dungeonService.displayDungeon(dungeon)
+    dungeon.display()
     
 }
 

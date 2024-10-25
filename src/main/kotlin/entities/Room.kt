@@ -51,5 +51,17 @@ class Room(val size: Int) {
         return emptyCells
     }
 
+    fun display(){
+        for (y in 0 until size) {
+            for (x in 0 until size) {
+                val cell = getCell(x, y)
+                val symbol = cell?.displayChar
+                print(symbol)
+            }
+            println()
+        }
+        println() // Separate rooms with a blank line
+    }
+
 }
 
