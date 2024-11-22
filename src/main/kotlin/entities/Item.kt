@@ -35,12 +35,13 @@ data class Potion(
     }
 
     fun usePotion(target: BaseEntity) {
+        /*
         when (type) {
             PotionType.HEALING -> target.totalHealth += value
             PotionType.MANA -> target.totalMana += value
             PotionType.STRENGTH -> target.totalStrength += value
             PotionType.DEFENSE -> target.totalDefense += value
             PotionType.DAMAGE -> target.totalHealth -= value
-        }
+        }*/
     }
 }

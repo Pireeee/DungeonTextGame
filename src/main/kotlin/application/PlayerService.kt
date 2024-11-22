@@ -14,10 +14,10 @@ class PlayerService {
                 val playerClass = classSelect() // Demande la classe du joueur
 
                 // Tentative de création du joueur
-                player = Player(name, playerClass, 10, 5, 100, 10)
+                player = Player(name, playerClass)
 
                 // Affiche les informations du joueur créé
-                println("Welcome ${player.name} the ${player.playerClass}! Your stats: ${player.totalStrength} strength, ${player.totalDefense} defense, ${player.totalHealth} health, ${player.totalMana} mana.")
+                println("Welcome ${player.name} the ${player.playerClass}! Your stats: ${player.totalStats.strength} strength, ${player.totalStats.defense} defense, ${player.totalStats.health} health, ${player.totalStats.mana} mana.")
 
             } catch (e: IllegalArgumentException) {
                 // Si une exception est levée, affiche le message d'erreur et redemande le nom
