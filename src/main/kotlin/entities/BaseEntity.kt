@@ -1,9 +1,19 @@
 package fr.entities
 
-open class BaseEntity (
-    open val name: String,
-    open var totalStrength: Int,
-    open var totalDefense: Int,
-    open var totalHealth: Int,
-    open var totalMana: Int
+interface BaseEntity {
+    val name: String
+    var baseStats : EntityStats
+    var totalStats : EntityStats
+}
+data class EntityStats(
+    val health: Int,
+    val mana : Int,
+    val strength: Int,
+    val inteligence: Int,
+    val defense: Int,
+    val magicDefence : Int,
+    val agility: Int,
+    val chance: Int,
+    val endurence: Int,
+    val spirit: Int
 )
