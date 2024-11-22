@@ -15,7 +15,12 @@ class Player(
     override var totalHealth: Int = baseHealth,
     override var totalMana: Int = baseMana,
     var inventory: MutableList<Item> = mutableListOf()
-): BaseEntity(name, totalStrength, totalDefense, totalHealth, totalMana)
+): BaseEntity {
+    init {
+        require(name.length in 3..15) { "Name must be between 3 and 15 characters." }
+        require( playerClass in PlayerClass.values()) { "Invalid class" }
+    }
+}
 
 
 enum class PlayerClass {

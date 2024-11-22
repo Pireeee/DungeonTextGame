@@ -6,6 +6,7 @@ import entities.PlayerClass
 import kotlin.test.Test
 import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 import kotlin.test.assertFalse
 
 class PlayerTest {
@@ -41,6 +42,23 @@ class PlayerTest {
     }
 
     @Test
+    fun `create player, invalid player name, too short`() {
+        val name = "A"
+        assertFails { Player(name, PlayerClass.WARRIOR, 10, 5, 100, 10) }
+    }
+
+    @Test
+    fun `create player, invalid player name, too long`() {
+        val name = "Aazerqsdgeargqsdfzaedgh"
+        assertFails { Player(name, PlayerClass.WARRIOR, 10, 5, 100, 10) }
+    }
+
+    @Test
+    fun `invalid player name (empty)`() {
+        assertFalse { checkName("") }
+    }
+
+    @Test
     fun `invalid player name (too long)`() {
         assertFalse{checkName("ThisNameIsTooLong")}
     }
@@ -58,6 +76,10 @@ class PlayerTest {
     fun `invalid player class`() {
         assert(setPlayerClass("bard") == null)
     }
+    /*@Test
+fun `create player, invalid player class`() {
+    assertFails { Player("link", "oui", 10, 5, 100, 10) }
+}*/
 }
 
    
