@@ -1,6 +1,7 @@
 package application
 
 import entities.*
+import fr.entities.printStats
 
 class PlayerService {
 
@@ -17,8 +18,8 @@ class PlayerService {
                 player = Player(name, playerClass)
 
                 // Affiche les informations du joueur créé
-                println("Welcome ${player.name} the ${player.playerClass}! Your stats: ${player.totalStats.strength} strength, ${player.totalStats.defense} defense, ${player.totalStats.health} health, ${player.totalStats.mana} mana.")
-
+                println("Welcome ${player.name} the ${player.playerClass}!")
+                player.printStats()
             } catch (e: IllegalArgumentException) {
                 // Si une exception est levée, affiche le message d'erreur et redemande le nom
                 println("Erreur: ${e.message}")

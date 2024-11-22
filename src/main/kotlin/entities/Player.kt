@@ -3,6 +3,8 @@ package entities
 import fr.entities.BaseEntity
 import fr.entities.EntityStats
 import fr.entities.Item
+import fr.entities.stats.MageStats
+import fr.entities.stats.RogueStats
 import fr.entities.stats.WarriorStats
 
 class Player(
@@ -28,7 +30,7 @@ enum class PlayerClass {
 fun findStatsByClass(playerClass: PlayerClass): EntityStats {
     return when (playerClass) {
         PlayerClass.WARRIOR -> WarriorStats()
-        PlayerClass.MAGE -> WarriorStats()
-        PlayerClass.ROGUE -> WarriorStats()
+        PlayerClass.MAGE -> MageStats()
+        PlayerClass.ROGUE -> RogueStats()
     }
 }
