@@ -1,6 +1,5 @@
 package fr.entities
 
-import java.util.*
 import kotlin.reflect.full.memberProperties
 
 interface BaseEntity {
@@ -16,12 +15,12 @@ interface EntityStats {
     val health: Int
     val mana : Int
     val strength: Int
-    val inteligence: Int
+    val intelligence: Int
     val defense: Int
     val magicDefence : Int
     val agility: Int
     val chance: Int
-    val endurence: Int
+    val endurance: Int
     val spirit: Int
 }
 fun EntityStats.printDynamicStats() {
