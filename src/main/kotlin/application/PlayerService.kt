@@ -4,16 +4,6 @@ import entities.*
 
 class PlayerService {
 
-
-    fun movePlayer(direction: String, dungeon: Dungeon, currentRoom: Room): Room {
-        // Logique de déplacement
-        return currentRoom;
-    }
-
-    fun attack(monster: Monster, player: Player) {
-        // Logique d'attaque
-    }
-
     fun createPlayer(): Player {
         var player: Player? = null
 
@@ -42,9 +32,8 @@ class PlayerService {
         val validClasses = mutableSetOf<String>()
         enumValues<PlayerClass>().forEach {
 
-            validClasses.add(it.name.toLowerCase())
+            validClasses.add(it.name.lowercase())
         }
-        println(validClasses)
         println("Please choose your class: (${validClasses.joinToString(", ")})")
         val playerclass = readLine()?.let { setPlayerClass(it) }
         if ( playerclass != null) {
@@ -88,10 +77,4 @@ fun checkName(name: String): Boolean {
     } else {
         return true
     }
-}
-
-fun intro() {
-    println("Hello mighty hero!")
-    println("Welcome to the dungeon game.")
-    println("Please enter your name: ")
 }
