@@ -1,6 +1,7 @@
 package entities
 
 import fr.entities.*
+import fr.entities.stats.WarriorStats
 import kotlin.random.Random
 
 class Room(val size: Int) {
@@ -22,7 +23,7 @@ class Room(val size: Int) {
     }
 
     private fun generateGrid(size: Int): Array<Array<Cell>> {
-        val monsterCell = MonsterCell(Monster("Goblin", 10, 5, 20, 0))
+        val monsterCell = MonsterCell(Monster("Goblin", WarriorStats(), WarriorStats()))
         val treasureCell = Treasure("Gold Coin", 100)
         val doorCell = DoorCell()
         val emptyCells: Array<Array<Cell>> = Array(size) { Array(size) { EmptyCell() } }
