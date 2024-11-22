@@ -1,15 +1,10 @@
 package entities
 
 import fr.entities.BaseEntity
+import fr.entities.EntityStats
 
 class Monster (
     override val name: String,
-    val baseStrength: Int,
-    val baseDefense: Int,
-    val baseHealth: Int,
-    val baseMana: Int,
-    override var totalStrength: Int = baseStrength,
-    override var totalDefense: Int = baseDefense,
-    override var totalHealth: Int = baseHealth,
-    override var totalMana: Int = baseMana,
+    override var baseStats: EntityStats,
+    override var totalStats: EntityStats
 ): BaseEntity

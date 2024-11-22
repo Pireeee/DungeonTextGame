@@ -1,22 +1,23 @@
 package entities
 
 import fr.entities.BaseEntity
+import fr.entities.EntityStats
 import fr.entities.Item
+import fr.entities.stats.WarriorStats
 
 class Player(
     override val name: String,
     val playerClass: PlayerClass,
-    val baseStrength: Int,
-    val baseDefense: Int,
-    val baseHealth: Int,
-    val baseMana: Int,
-    override var totalStrength: Int = baseStrength,
-    override var totalDefense: Int = baseDefense,
-    override var totalHealth: Int = baseHealth,
-    override var totalMana: Int = baseMana,
+    override var baseStats: EntityStats = findStatsByClass(playerClass),
+    override var totalStats: EntityStats = baseStats,
     var inventory: MutableList<Item> = mutableListOf()
-): BaseEntity
-
+): BaseEntity {
+    init {
+        require(name.length in 3..15) { "Name must be between 3 and 15 characters." }
+        require( playerClass in PlayerClass.values()) { "Invalid class" }
+        totalStats = baseStats
+    }
+}
 
 enum class PlayerClass {
     WARRIOR,
@@ -24,12 +25,10 @@ enum class PlayerClass {
     ROGUE
 }
 
-enum class PlayerStats{
-    NAME,
-    CLASS,
-    STRENGTH,
-    DEFENCE,
-    HEALTH,
-    MANA,
-    INVENTORY
+fun findStatsByClass(playerClass: PlayerClass): EntityStats {
+    return when (playerClass) {
+        PlayerClass.WARRIOR -> WarriorStats()
+        PlayerClass.MAGE -> WarriorStats()
+        PlayerClass.ROGUE -> WarriorStats()
+    }
 }
