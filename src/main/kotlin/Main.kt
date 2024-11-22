@@ -2,9 +2,7 @@ package fr
 
 import application.PlayerService
 import entities.Dungeon
-import entities.Monster
 import entities.Player
-import entities.PlayerClass
 import user_interface.CommandHandler
 
 fun main() {
@@ -13,15 +11,20 @@ fun main() {
     val playerService = PlayerService()
     val commandHandler = CommandHandler(playerService)
 
-    //Start the game loop
     // Create player
     val player = playerService.createPlayer()
     val dungeon = Dungeon(5, 5)
 
-    // Display the dungeon map
-    println("see the entire dungeon map :")
-    dungeon.display()
-    
+    // Place the player in the first room at (0,0)
+    dungeon.placePlayer(player, 0)
+
+    dungeon.displayCurrentRoom()
+
+    // Move the player within the first room
+    println("Moving player within the first room to (2,2)...")
+    dungeon.movePlayerWithinRoom(player, 0, 0, 0, 2, 2)
+
+    dungeon.displayCurrentRoom()
 }
 
 fun intro() {

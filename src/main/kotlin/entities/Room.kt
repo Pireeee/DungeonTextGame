@@ -29,8 +29,8 @@ class Room(val size: Int) {
 
         // Create a list of all possible coordinates
         val coordinates = mutableListOf<Pair<Int, Int>>()
-        for (x in 0 until size) {
-            for (y in 0 until size) {
+        for (x in 1 until size) {
+            for (y in 1 until size) {
                 coordinates.add(Pair(x, y))
             }
         }
@@ -62,6 +62,20 @@ class Room(val size: Int) {
         }
         println() // Separate rooms with a blank line
     }
+
+    fun placePlayer(player: Player, x: Int = 0, y: Int = 0) {
+        setCell(x, y, PlayerCell(player))
+    }
+
+    fun removePlayer(x: Int, y: Int) {
+        setCell(x, y, EmptyCell())
+    }
+
+    fun movePlayer(player: Player, fromX: Int, fromY: Int, toX: Int, toY: Int) {
+        removePlayer(fromX, fromY)
+        placePlayer(player, toX, toY)
+    }
+
 
 }
 
