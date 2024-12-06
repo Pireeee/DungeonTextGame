@@ -56,12 +56,22 @@ class Room(val size: Int, isRandom: Boolean) {
         return emptyCells
     }
 
-    fun display(){
+    fun display() {
+        // Print column headers
+        print("   ")
+        for (x in 0 until size) {
+            print(" $x ")
+        }
+        println()
+
         for (y in 0 until size) {
+            // Print row header
+            print(" $y ")
+
             for (x in 0 until size) {
                 val cell = getCell(x, y)
-                val symbol = cell?.displayChar
-                print(symbol)
+                val symbol = cell?.displayChar ?: " "
+                print(" $symbol ")
             }
             println()
         }
@@ -90,6 +100,7 @@ class Room(val size: Int, isRandom: Boolean) {
                 }
             }
         }
+        System.err.println("Player not found in room")
         return Pair(-1, -1)
     }
 

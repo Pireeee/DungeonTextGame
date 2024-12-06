@@ -15,12 +15,6 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean){
         return Array(number) { Room(size, isRandom) }
     }
 
-    fun display(){
-        for (room in rooms) {
-            room.display()
-        }
-    }
-
     fun displayCurrentRoom(){
         rooms[currentRoomIndex].display()
     }
