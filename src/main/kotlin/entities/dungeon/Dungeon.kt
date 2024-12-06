@@ -34,13 +34,47 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean){
         rooms[index] = room
     }
 
-    fun movePlayerWithinRoom(player: Player, roomIndex: Int, fromX: Int, fromY: Int, toX: Int, toY: Int):Boolean {
-        if (roomIndex in rooms.indices) {
-            rooms[roomIndex].movePlayer(player, fromX, fromY, toX, toY)
-            return true
+    fun movePlayerWithinRoom(player: Player, toX: Int, toY: Int): Boolean {
+        if (currentRoomIndex in rooms.indices) {
+            val currentRoom = rooms[currentRoomIndex]
+            val (fromX, fromY) = currentRoom.findPlayerPosition(player)
+            if (currentRoom.isValidPosition(toX, toY)) {
+                currentRoom.movePlayer(player, fromX, fromY, toX, toY)
+                return true
+            } else {
+                println("Invalid move: ($toX, $toY) is out of bounds")
+                return false
+            }
         } else {
             println("Invalid room index")
             return false
+        }
+    }
+    fun executeCommand(player: Player, command: Char): Boolean {
+        val currentRoom = rooms[currentRoomIndex]
+        val (currentX, currentY) = currentRoom.findPlayerPosition(player)
+
+        return when (command) {
+            'N' -> movePlayerWithinRoom(player, currentX , currentY- 1)
+            'S' -> movePlayerWithinRoom(player, currentX , currentY+1)
+            'E' -> movePlayerWithinRoom(player, currentX + 1, currentY )
+            'O' -> movePlayerWithinRoom(player, currentX - 1, currentY )
+            'A' -> {
+                val (dx, dy) = player.moveForward()
+                movePlayerWithinRoom(player, currentX + dx, currentY + dy)
+            }
+            'G' -> {
+                player.turnLeft()
+                true
+            }
+            'D' -> {
+                player.turnRight()
+                true
+            }
+            else -> {
+                println("Invalid command")
+                false
+            }
         }
     }
 }

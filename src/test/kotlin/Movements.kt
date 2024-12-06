@@ -1,4 +1,6 @@
 package tests
+import fr.entities.EmptyCell
+import fr.entities.MonsterCell
 import fr.entities.dungeon.Dungeon
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
@@ -25,17 +27,43 @@ class MovementsTests{
     fun `move player on an empty cell`() {
         dungeon.placePlayer(player, 0)
         dungeon.setRoom(customRoom, 0)
-        assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 1))
+        //test the cell 1,1 is an instence of empty cell
+
+        if(dungeon.rooms.get(0).getCell(1,1) !is EmptyCell){
+            println("The cell 1,1 is not empty")
+            assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 1))
+        }
+        else{
+            assert(false)
+        }
     }
     //Déplacement vers une case contenant un monstre
     @Test
     fun `move player on a monster cell`() {
-        // TODO
+        dungeon.placePlayer(player, 0)
+        dungeon.setRoom(customRoom, 0)
+        //test the cell 1,2 is an instence of monster cell
+        if(dungeon.rooms.get(0).getCell(1,2) is MonsterCell){
+            println("The cell 1,2 is a monster")
+            assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 2))
+        }
+        else{
+            assert(false)
+        }
     }
     //Tentative de déplacement hors de la grille
     @Test
     fun `move player on a out of the grid cell`() {
-        // TODO
+        dungeon.placePlayer(player, 0)
+        dungeon.setRoom(customRoom, 0)
+        //test the cell 1,6 is out of the grid
+        if(dungeon.rooms.get(0).getCell(1,6) == null){
+            println("The cell 1,6 is out of the grid")
+            assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 6))
+        }
+        else{
+            assert(false)
+        }
     }
     //Tentative de déplacement hors de la grille
     @Test

@@ -17,11 +17,12 @@ fun main() {
 
     dungeon.displayCurrentRoom()
 
-    // Move the player within the first room
-    println("Moving player within the first room to (2,2)...")
-    dungeon.movePlayerWithinRoom(player, 0, 0, 0, 2, 2)
-
-    dungeon.displayCurrentRoom()
+    val commands= listOf('S', 'N', 'E', 'O', 'G', 'D','A')
+    for (command in commands) {
+        println("Executing command $command")
+        dungeon.executeCommand(player, command)
+        dungeon.displayCurrentRoom()
+    }
 }
 
 fun intro() {

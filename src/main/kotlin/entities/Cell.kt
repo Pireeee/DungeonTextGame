@@ -28,5 +28,5 @@ class Treasure(val description: String, val value: Int) : Cell{
 
 class PlayerCell(val player: Player) : Cell {
     override val displayChar: Char
-        get() = 'P'
+        get() = player.direction.displayChar
 }

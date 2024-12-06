@@ -1,4 +1,4 @@
-package fr.entities.stats
+package fr.entities.entities.stats
 
 import fr.entities.entities.EntityStats
 class MageStats: EntityStats {

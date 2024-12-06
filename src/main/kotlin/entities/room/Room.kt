@@ -3,7 +3,7 @@ package fr.entities.room
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
 import fr.entities.*
-import fr.entities.stats.WarriorStats
+import fr.entities.entities.stats.WarriorStats
 import kotlin.random.Random
 
 class Room(val size: Int, isRandom: Boolean) {
@@ -79,6 +79,22 @@ class Room(val size: Int, isRandom: Boolean) {
     fun movePlayer(player: Player, fromX: Int, fromY: Int, toX: Int, toY: Int) {
         removePlayer(fromX, fromY)
         placePlayer(player, toX, toY)
+    }
+
+    fun findPlayerPosition(player: Player): Pair<Int, Int> {
+        for (x in 0 until size) {
+            for (y in 0 until size) {
+                val cell = getCell(x, y)
+                if (cell is PlayerCell && cell.player == player) {
+                    return Pair(x, y)
+                }
+            }
+        }
+        return Pair(-1, -1)
+    }
+
+    fun isValidPosition(x: Int, y: Int): Boolean {
+        return x in 0 until size && y in 0 until size
     }
 
 

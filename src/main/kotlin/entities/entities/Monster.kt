@@ -1,6 +1,6 @@
 package fr.entities.entities
 
-import fr.entities.stats.MonsterStats
+import fr.entities.entities.stats.MonsterStats
 
 class Monster (
     override val name: String,
