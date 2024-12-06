@@ -1,7 +1,7 @@
 package fr
 
 import fr.services.PlayerService
-import fr.entities.dungeon.Dungeon
+import fr.entities.dungeon.DungeonBuilder
 
 fun main() {
     // Game initialization
@@ -10,7 +10,8 @@ fun main() {
 
     // Create player
     val player = playerService.createPlayer()
-    val dungeon = Dungeon(5, 5, true)
+    val dungeonBuilder = DungeonBuilder()
+    val dungeon = dungeonBuilder.setRooms(5).setRoomSize(5).build()
 
     // Place the player in the first room at (0,0)
     dungeon.placePlayer(player, 0)

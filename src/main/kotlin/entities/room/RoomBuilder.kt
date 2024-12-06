@@ -44,6 +44,11 @@ class RoomBuilder {
         return this
     }
 
+    fun placeEmpty(x: Int, y: Int): RoomBuilder {
+        entities.add(Triple(x, y, EmptyCell()))
+        return this
+    }
+
     fun build(): Room {
         val room = Room(size, isRandom)
         for ((x, y, entity) in entities) {

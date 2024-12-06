@@ -1,17 +1,17 @@
 package fr.entities.dungeon
 
 class DungeonBuilder {
-    private var number=1
-    private var size=1
+    private var rooms =1
+    private var roomSize =1
     private var isRandom=true
 
-    fun setNumber(number: Int): DungeonBuilder {
-        this.number = number
+    fun setRooms(number: Int): DungeonBuilder {
+        this.rooms = number
         return this
     }
 
-    fun setSize(size: Int): DungeonBuilder {
-        this.size = size
+    fun setRoomSize(size: Int): DungeonBuilder {
+        this.roomSize = size
         return this
     }
 
@@ -21,6 +21,6 @@ class DungeonBuilder {
     }
 
     fun build(): Dungeon {
-        return Dungeon(number, size, isRandom)
+        return Dungeon(rooms, roomSize, isRandom)
     }
 }
