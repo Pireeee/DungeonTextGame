@@ -1,7 +1,4 @@
-package entities
-
-import fr.entities.BaseEntity
-import fr.entities.EntityStats
+package fr.entities.entities
 
 class Monster (
     override val name: String,

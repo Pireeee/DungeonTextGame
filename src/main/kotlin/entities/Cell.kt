@@ -1,7 +1,7 @@
 package fr.entities
 
-import entities.Monster
-import entities.Player
+import fr.entities.entities.Monster
+import fr.entities.entities.Player
 
 interface Cell {
     val displayChar: Char

@@ -1,7 +1,8 @@
-package application
+package fr.services
 
-import entities.*
-import fr.entities.printStats
+import fr.entities.entities.Player
+import fr.entities.entities.PlayerClass
+import fr.entities.entities.printStats
 
 class PlayerService {
 

@@ -1,4 +1,4 @@
-package fr.entities
+package fr.entities.entities
 
 sealed class Item (
     val name: String

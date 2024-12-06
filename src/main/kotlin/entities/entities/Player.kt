@@ -1,8 +1,5 @@
-package entities
+package fr.entities.entities
 
-import fr.entities.BaseEntity
-import fr.entities.EntityStats
-import fr.entities.Item
 import fr.entities.stats.MageStats
 import fr.entities.stats.RogueStats
 import fr.entities.stats.WarriorStats

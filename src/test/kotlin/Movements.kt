@@ -1,11 +1,19 @@
 package tests
+import fr.entities.dungeon.Dungeon
+import fr.entities.entities.Player
+import fr.entities.entities.PlayerClass
 import kotlin.test.Test
 
 class MovementsTests{
     //Déplacement vers une case vide
+
+    val player = Player("link", PlayerClass.WARRIOR)
+    val dungeon = Dungeon(5, 5,false)
+
     @Test
     fun `move player on an empty cell`() {
-        // TODO
+        dungeon.placePlayer(player, 0)
+        assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 0))
     }
     //Déplacement vers une case contenant un monstre
     @Test

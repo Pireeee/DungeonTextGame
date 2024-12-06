@@ -1,6 +1,6 @@
 package fr.entities.stats
 
-import fr.entities.EntityStats
+import fr.entities.entities.EntityStats
 class MageStats: EntityStats {
     override val health: Int = 90
     override val mana: Int = 150

@@ -1,12 +1,14 @@
-package entities
+package fr.entities.room
 
+import fr.entities.entities.Monster
+import fr.entities.entities.Player
 import fr.entities.*
 import fr.entities.stats.WarriorStats
 import kotlin.random.Random
 
-class Room(val size: Int) {
+class Room(val size: Int, isRandom: Boolean) {
 
-    private val grid: Array<Array<Cell>> = generateGrid(size)
+    private val grid: Array<Array<Cell>> = generateGrid(size, isRandom)
 
     fun getCell(x: Int, y: Int): Cell? {
         return if (x in 0 until size && y in 0 until size) {
@@ -22,7 +24,7 @@ class Room(val size: Int) {
         }
     }
 
-    private fun generateGrid(size: Int): Array<Array<Cell>> {
+    private fun generateGrid(size: Int, isRandom: Boolean): Array<Array<Cell>> {
         val monsterCell = MonsterCell(Monster("Goblin", WarriorStats(), WarriorStats()))
         val treasureCell = Treasure("Gold Coin", 100)
         val doorCell = DoorCell()
@@ -37,7 +39,9 @@ class Room(val size: Int) {
         }
 
         // Shuffle the list to randomize the order with a unique seed
-        coordinates.shuffle(Random(System.nanoTime()))
+        if (isRandom){
+            coordinates.shuffle(Random(System.nanoTime()))
+        }
 
         // Place the special cells at the first few coordinates
         val (monsterX, monsterY) = coordinates[0]

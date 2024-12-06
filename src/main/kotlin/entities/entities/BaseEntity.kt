@@ -1,4 +1,4 @@
-package fr.entities
+package fr.entities.entities
 
 import kotlin.reflect.full.memberProperties
 

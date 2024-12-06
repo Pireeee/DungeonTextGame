@@ -1,8 +1,8 @@
 package tests
-import application.checkName
-import application.setPlayerClass
-import entities.Player
-import entities.PlayerClass
+import fr.services.checkName
+import fr.services.setPlayerClass
+import fr.entities.entities.Player
+import fr.entities.entities.PlayerClass
 import kotlin.test.Test
 import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
@@ -53,7 +53,7 @@ class PlayerTest {
 
     @Test
     fun `invalid player name (too long)`() {
-        assertFalse{checkName("ThisNameIsTooLong")}
+        assertFalse{ checkName("ThisNameIsTooLong") }
     }
     @Test
     fun `invalid player name (too short)`() {

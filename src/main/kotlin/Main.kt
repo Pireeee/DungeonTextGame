@@ -1,19 +1,16 @@
 package fr
 
-import application.PlayerService
-import entities.Dungeon
-import entities.Player
-import user_interface.CommandHandler
+import fr.services.PlayerService
+import fr.entities.dungeon.Dungeon
 
 fun main() {
     // Game initialization
     intro()
     val playerService = PlayerService()
-    val commandHandler = CommandHandler(playerService)
 
     // Create player
     val player = playerService.createPlayer()
-    val dungeon = Dungeon(5, 5)
+    val dungeon = Dungeon(5, 5, true)
 
     // Place the player in the first room at (0,0)
     dungeon.placePlayer(player, 0)

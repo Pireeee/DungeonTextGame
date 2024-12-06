@@ -1,6 +1,6 @@
 package fr.entities.stats
 
-import fr.entities.EntityStats
+import fr.entities.entities.EntityStats
 
 class RogueStats: EntityStats {
     override val health: Int = 110
