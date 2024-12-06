@@ -12,8 +12,7 @@ class MovementsTests{
     val player = Player("link", PlayerClass.WARRIOR)
     val dungeon = Dungeon(5, roomSize,false)
     val monster = Monster("Goblin")
-    val roomBuilder = RoomBuilder()
-    val customRoom = roomBuilder
+    val customRoom = RoomBuilder()
         .setSize(roomSize)
         .setRandom(false)
         .placeEmpty(1,1)

@@ -10,8 +10,7 @@ fun main() {
 
     // Create player
     val player = playerService.createPlayer()
-    val dungeonBuilder = DungeonBuilder()
-    val dungeon = dungeonBuilder.setRooms(5).setRoomSize(5).build()
+    val dungeon = DungeonBuilder().setRooms(5).setRoomSize(5).build()
 
     // Place the player in the first room at (0,0)
     dungeon.placePlayer(player, 0)
