@@ -3,6 +3,7 @@ package fr.entities.room
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
 import fr.entities.*
+import fr.entities.entities.Treasure
 import fr.entities.entities.stats.WarriorStats
 import kotlin.random.Random
 
@@ -26,7 +27,7 @@ class Room(val size: Int, isRandom: Boolean) {
 
     private fun generateGrid(size: Int, isRandom: Boolean): Array<Array<Cell>> {
         val monsterCell = MonsterCell(Monster("Goblin", WarriorStats(), WarriorStats()))
-        val treasureCell = TreasureCell("Gold Coin", 100)
+        val treasureCell = TreasureCell(Treasure("Gold", 100))
         val doorCell = DoorCell()
         val emptyCells: Array<Array<Cell>> = Array(size) { Array(size) { EmptyCell() } }
 
@@ -80,6 +81,10 @@ class Room(val size: Int, isRandom: Boolean) {
 
     fun placePlayer(player: Player, x: Int = 0, y: Int = 0) {
         if(isValidPosition(x, y)){
+            if(checkTreasure(x, y)){
+                val treasure = getCell(x, y) as TreasureCell
+                player.pickUpTreasure(treasure.treasure)
+            }
             setCell(x, y, PlayerCell(player))
         }
     }
@@ -108,6 +113,10 @@ class Room(val size: Int, isRandom: Boolean) {
 
     fun isValidPosition(x: Int, y: Int): Boolean {
         return x in 0 until size && y in 0 until size && getCell(x, y) !is ObstacleCell
+    }
+
+    fun checkTreasure(x: Int, y: Int): Boolean {
+        return getCell(x, y) is TreasureCell
     }
 }
 

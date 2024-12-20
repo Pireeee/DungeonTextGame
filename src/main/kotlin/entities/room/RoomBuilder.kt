@@ -3,6 +3,7 @@ package fr.entities.room
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
 import fr.entities.*
+import fr.entities.entities.Treasure
 
 class RoomBuilder {
     private var size: Int = 5
@@ -37,8 +38,8 @@ class RoomBuilder {
         return this
     }
 
-    fun placeTreasure(x: Int, y: Int, name: String, value: Int): RoomBuilder {
-        entities.add(Triple(x, y, TreasureCell(name, value)))
+    fun placeTreasure(x: Int, y: Int, treasure: Treasure): RoomBuilder {
+        entities.add(Triple(x, y, TreasureCell(treasure)))
         return this
     }
 

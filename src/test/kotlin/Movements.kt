@@ -4,8 +4,8 @@ import fr.entities.dungeon.Dungeon
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
 import fr.entities.entities.PlayerClass
+import fr.entities.entities.Treasure
 import fr.entities.room.RoomBuilder
-import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 
 class MovementsTests{
@@ -89,7 +89,7 @@ class MovementsTests{
         val customRoom = RoomBuilder()
             .setRandom(false)
             .placePlayer(1,2, player)
-            .placeTreasure(1,3, "Gold", 100)
+            .placeTreasure(1, 3, Treasure("Gold coin",10))
             .build()
         dungeon.setRoom(customRoom, 0)
         dungeon.displayCurrentRoom()

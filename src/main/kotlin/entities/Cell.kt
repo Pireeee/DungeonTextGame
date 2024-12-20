@@ -1,7 +1,9 @@
 package fr.entities
 
+import fr.entities.entities.Item
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
+import fr.entities.entities.Treasure
 
 interface Cell {
     val displayChar: Char
@@ -21,7 +23,8 @@ class MonsterCell(val monster: Monster) : Cell{
     override val displayChar: Char
         get() = 'M'
 }
-class TreasureCell(val description: String, val value: Int) : Cell{
+
+class TreasureCell(val treasure: Treasure) : Cell{
     override val displayChar: Char
         get() = 'T'
 }

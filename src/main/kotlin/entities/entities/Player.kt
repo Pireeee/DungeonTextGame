@@ -10,7 +10,7 @@ class Player(
     var direction: Direction = Direction.SOUTH,
     override var baseStats: EntityStats = findStatsByClass(playerClass),
     override var totalStats: EntityStats = baseStats,
-    var inventory: MutableList<Item> = mutableListOf()
+    var inventory: MutableList<Treasure> = mutableListOf()
 ): BaseEntity {
     init {
         require(name.length in 3..15) { "Name must be between 3 and 15 characters." }
@@ -33,6 +33,11 @@ class Player(
 
     fun turnRight() {
         direction = direction.turnRight()
+    }
+
+    fun pickUpTreasure(treasure: Treasure) {
+        println("$name picked up ${treasure.name}")
+        inventory.add(treasure)
     }
 }
 
