@@ -61,9 +61,31 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
         currentRoom.movePlayer(player, fromX, fromY, toX, toY)
         return MoveResult.MOVED_WITHIN_ROOM
     }
+    fun executeCommand(player: Player, command: Commands?): MoveResult {
+        val currentRoom = roomsArray[currentRoomIndex]
+        val (currentX, currentY) = currentRoom.findPlayerPosition(player)
+// add independant function for left/right
+        return when (command) {
+            Commands.NORTH -> movePlayerWithinRoom(player, currentX, currentY - 1)
+            Commands.SOUTH -> movePlayerWithinRoom(player, currentX, currentY + 1)
+            Commands.EAST -> movePlayerWithinRoom(player, currentX + 1, currentY)
+            Commands.WEST -> movePlayerWithinRoom(player, currentX - 1, currentY)
+            Commands.GAUCHE -> {
+                player.turnLeft()
+                MoveResult.CHANGED_DIRECTION
+            }
+            Commands.DROITE -> {
+                player.turnRight()
+                MoveResult.CHANGED_DIRECTION
+            }
+            else -> {
+                println("Invalid command")
+                MoveResult.NOT_ALLOWED
+            }
+        }
+    }
 
-
-    fun executeCommand(player: Player, command: Char): MoveResult {
+    /*fun executeCommand(player: Player, command: Char): MoveResult {
         val currentRoom = roomsArray[currentRoomIndex]
         val (currentX, currentY) = currentRoom.findPlayerPosition(player)
 
@@ -86,7 +108,7 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
 
         println("Invalid command")
         return MoveResult.NOT_ALLOWED
-    }
+    }*/
 }
 
 

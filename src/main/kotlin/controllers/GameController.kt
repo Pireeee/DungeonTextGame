@@ -1,5 +1,6 @@
 package fr.controllers
 
+import fr.entities.dungeon.Commands
 import fr.entities.dungeon.Dungeon
 import fr.entities.entities.Player
 import fr.entities.entities.returnPlayerInfoString
@@ -15,24 +16,29 @@ class GameController(private val player: Player, private val dungeon: Dungeon) {
         displayHeader()
         dungeon.displayCurrentRoom()
         println("Enter a command (N, S, E, O, G, D, A) or I for info or Q to quit: ")
-        val command = scanner.next().first().uppercaseChar()
-        if (command == 'Q') {
-            println("Exiting game. Goodbye!")
-            break
+        val input = scanner.next().uppercase().first()
+        val command = try {
+            Commands.fromChar(input)
+        } catch (e: IllegalArgumentException) {
+            println("Invalid command")
+            continue
         }
-        if (command in listOf('N', 'S', 'E', 'O', 'G', 'D', 'A')) {
-            val moove = dungeon.executeCommand(player, command)
-            if (moove == fr.entities.MoveResult.END_OF_DUNGEON) {
-                println("Congratulations! You have reached the end of the dungeon.")
+        when (command) {
+            Commands.QUIT -> {
+                println("Exiting game. Goodbye!")
                 break
+            }/*
+            Commands.SAVE -> saveGame()
+            Commands.LOAD -> loadGame()*/
+            Commands.INFOS -> displayPlayerInfo(player)
+            else -> {
+                val moveResult = dungeon.executeCommand(player, command)
+                if (moveResult == fr.entities.MoveResult.END_OF_DUNGEON) {
+                    println("Congratulations! You have reached the end of the dungeon.")
+                    break
+                }
             }
-            continue
         }
-        if (command == 'I') {
-            displayPlayerInfo(player)
-            continue
-        }
-        println("Invalid command")
     }
 }
 
