@@ -30,7 +30,12 @@ class RoomBuilder {
     }
 
     fun placeTreasure(x: Int, y: Int, name: String, value: Int): RoomBuilder {
-        entities.add(Triple(x, y, Treasure(name, value)))
+        entities.add(Triple(x, y, TreasureCell(name, value)))
+        return this
+    }
+
+    fun placeObstacle(x: Int, y: Int): RoomBuilder {
+        entities.add(Triple(x, y, ObstacleCell()))
         return this
     }
 

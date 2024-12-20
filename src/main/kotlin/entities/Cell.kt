@@ -21,9 +21,14 @@ class MonsterCell(val monster: Monster) : Cell{
     override val displayChar: Char
         get() = 'M'
 }
-class Treasure(val description: String, val value: Int) : Cell{
+class TreasureCell(val description: String, val value: Int) : Cell{
     override val displayChar: Char
         get() = 'T'
+}
+
+class ObstacleCell : Cell {
+    override val displayChar: Char
+        get() = 'X'
 }
 
 class PlayerCell(val player: Player) : Cell {

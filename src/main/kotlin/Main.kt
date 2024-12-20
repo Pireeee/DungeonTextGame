@@ -5,10 +5,6 @@ import fr.entities.dungeon.Dungeon
 import fr.services.PlayerService
 import fr.entities.dungeon.DungeonBuilder
 import fr.entities.entities.Player
-import java.awt.Desktop
-import java.io.File
-import java.io.IOException
-import java.util.Scanner
 
 fun main() {
     // Game initialization

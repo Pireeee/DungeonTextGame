@@ -26,7 +26,7 @@ class Room(val size: Int, isRandom: Boolean) {
 
     private fun generateGrid(size: Int, isRandom: Boolean): Array<Array<Cell>> {
         val monsterCell = MonsterCell(Monster("Goblin", WarriorStats(), WarriorStats()))
-        val treasureCell = Treasure("Gold Coin", 100)
+        val treasureCell = TreasureCell("Gold Coin", 100)
         val doorCell = DoorCell()
         val emptyCells: Array<Array<Cell>> = Array(size) { Array(size) { EmptyCell() } }
 
@@ -79,7 +79,9 @@ class Room(val size: Int, isRandom: Boolean) {
     }
 
     fun placePlayer(player: Player, x: Int = 0, y: Int = 0) {
-        setCell(x, y, PlayerCell(player))
+        if(isValidPosition(x, y)){
+            setCell(x, y, PlayerCell(player))
+        }
     }
 
     fun removePlayer(x: Int, y: Int) {
@@ -105,9 +107,7 @@ class Room(val size: Int, isRandom: Boolean) {
     }
 
     fun isValidPosition(x: Int, y: Int): Boolean {
-        return x in 0 until size && y in 0 until size
+        return x in 0 until size && y in 0 until size && getCell(x, y) !is ObstacleCell
     }
-
-
 }
 

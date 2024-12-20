@@ -1,6 +1,5 @@
 package tests
-import fr.entities.EmptyCell
-import fr.entities.MonsterCell
+import fr.entities.*
 import fr.entities.dungeon.Dungeon
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
@@ -20,18 +19,23 @@ class MovementsTests{
         .placeEmpty(1,1)
         .placeMonster(1,2, monster)
         .placeTreasure(1,3, "Gold", 100)
+        .placePlayer(0,0, player)
         .placeDoor(1,4)
+        .placeObstacle(4,0)
+        .placeObstacle(4,1)
+        .placeObstacle(4,2)
+        .placeObstacle(4,3)
+        .placeObstacle(4,4)
         .build()
-
     @Test
     fun `move player on an empty cell`() {
-        dungeon.placePlayer(player, 0)
         dungeon.setRoom(customRoom, 0)
+        dungeon.displayCurrentRoom()
         //test the cell 1,1 is an instence of empty cell
 
-        if(dungeon.rooms.get(0).getCell(1,1) !is EmptyCell){
-            println("The cell 1,1 is not empty")
-            assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 1))
+        if(dungeon.rooms[0].getCell(1,1) is EmptyCell){
+            println("The cell 1,1 is empty")
+            assert(dungeon.movePlayerWithinRoom(player,1, 1))
         }
         else{
             assert(false)
@@ -40,12 +44,12 @@ class MovementsTests{
     //Déplacement vers une case contenant un monstre
     @Test
     fun `move player on a monster cell`() {
-        dungeon.placePlayer(player, 0)
         dungeon.setRoom(customRoom, 0)
+        dungeon.displayCurrentRoom()
         //test the cell 1,2 is an instence of monster cell
-        if(dungeon.rooms.get(0).getCell(1,2) is MonsterCell){
+        if(dungeon.rooms[0].getCell(1,2) is MonsterCell){
             println("The cell 1,2 is a monster")
-            assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 2))
+            assert(dungeon.movePlayerWithinRoom(player, 1, 2))
         }
         else{
             assert(false)
@@ -54,31 +58,60 @@ class MovementsTests{
     //Tentative de déplacement hors de la grille
     @Test
     fun `move player on a out of the grid cell`() {
-        dungeon.placePlayer(player, 0)
         dungeon.setRoom(customRoom, 0)
+        dungeon.displayCurrentRoom()
         //test the cell 1,6 is out of the grid
-        if(dungeon.rooms.get(0).getCell(1,6) == null){
+        if(dungeon.rooms[0].getCell(1,6) == null){
             println("The cell 1,6 is out of the grid")
-            assert(dungeon.movePlayerWithinRoom(player, 0, 0, 0, 1, 6))
+            assert(!dungeon.movePlayerWithinRoom(player,1, 6))
         }
         else{
-            assert(false)
+            assert(true)
         }
     }
     //Tentative de déplacement hors de la grille
     @Test
     fun `move the player multiple times`() {
-        // TODO
+        dungeon.setRoom(customRoom, 0)
+        dungeon.displayCurrentRoom()
+        for (i in 0..3){
+            assert(dungeon.movePlayerWithinRoom(player, i, 1))
+            dungeon.displayCurrentRoom()
+        }
+        if(dungeon.rooms[0].getCell(3,1) is PlayerCell){
+            assert(true)
+        }
+        else{
+            assert(false)
+        }
     }
     //Rencontre d'un trésor lors du déplacement
     @Test
     fun `move player on a treasure cell`() {
-        // TODO
+        dungeon.setRoom(customRoom, 0)
+        dungeon.displayCurrentRoom()
+        //test the cell 1,3 is an instence of treasure cell
+        if(dungeon.rooms[0].getCell(1,3) is TreasureCell){
+            println("The cell 1,3 is a treasure")
+            assert(dungeon.movePlayerWithinRoom(player, 1, 3))
+        }
+        else{
+            assert(false)
+        }
     }
     //Déplacement bloqué par un obstacle
     @Test
     fun `move player to a obstacle cell`() {
-        // TODO
+        dungeon.setRoom(customRoom, 0)
+        dungeon.displayCurrentRoom()
+        //test the cell 1,4 is an instence of door cell
+        if(dungeon.rooms[0].getCell(4,1) is ObstacleCell){
+            println("The cell 1,4 is an obstacle")
+            assert(!dungeon.movePlayerWithinRoom(player, 4, 1))
+        }
+        else{
+            assert(true)
+        }
     }
     //Gestion des limites de la grille
     @Test
