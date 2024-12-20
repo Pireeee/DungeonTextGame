@@ -1,6 +1,6 @@
 package fr
 
-import fr.controllers.PlayerController
+import fr.controllers.GameController
 import fr.entities.dungeon.Dungeon
 import fr.services.PlayerService
 import fr.entities.dungeon.DungeonBuilder
@@ -9,9 +9,9 @@ import fr.entities.entities.Player
 fun main() {
     // Game initialization
     introText()
-    val (player, dungeon) = InitPlayerAndDungeon()
-    val playerController = PlayerController(player, dungeon)
-    playerController.startGame()
+    val (player, dungeon) = initPlayerAndDungeon()
+    val gameController = GameController(player, dungeon)
+    gameController.startGame()
 }
 
 fun introText() {
@@ -19,7 +19,7 @@ fun introText() {
     println("Welcome to the dungeon game.")
 }
 
-fun InitPlayerAndDungeon(): Pair<Player, Dungeon> {
+fun initPlayerAndDungeon(): Pair<Player, Dungeon> {
     val playerService = PlayerService()
     val player = playerService.createPlayer()
     val dungeon = DungeonBuilder().setRooms(5).setRoomSize(5).build()

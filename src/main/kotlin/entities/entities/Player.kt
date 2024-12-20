@@ -49,3 +49,11 @@ fun findStatsByClass(playerClass: PlayerClass): EntityStats {
         PlayerClass.ROGUE -> RogueStats()
     }
 }
+
+fun returnPlayerInfoString(player: Player): String {
+    return "Name: ${player.name}\n" +
+            "Class: ${player.playerClass}\n" +
+            "Stats: ${player.totalStats.getDynamicStatsString()}\n" +
+            "Direction: ${player.direction}\n" +
+            "Inventory: ${player.inventory}"
+}
