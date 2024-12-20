@@ -48,16 +48,6 @@ class PlayerService {
 }
 
 fun setPlayerClass(input: String): PlayerClass? {
-    /*val exists = PlayerClass.values().any { clazz ->
-        clazz.name.equals(input, ignoreCase = true)
-    }
-
-    // If it doesn't exist, return null
-    if (!exists) {
-        return null
-    }*/
-
-    // If it exists, find and return the corresponding PlayerClass
     return PlayerClass.values().find { clazz ->
         clazz.name.equals(input, ignoreCase = true)
     }
@@ -65,9 +55,6 @@ fun setPlayerClass(input: String): PlayerClass? {
 fun nameSelect(): String {
     println("Please enter your name: ")
     var name = readLine() ?: "Hero"
-     /*if (!checkName(name)) {
-         nameSelect();
-     }*/
     return name
 
 }

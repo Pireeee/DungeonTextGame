@@ -1,5 +1,6 @@
 package fr.entities.dungeon
 
+import fr.entities.DoorCell
 import fr.entities.entities.Player
 import fr.entities.room.Room
 import fr.entities.room.RoomBuilder
@@ -31,20 +32,29 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
     }
 
     fun movePlayerWithinRoom(player: Player, toX: Int, toY: Int): Boolean {
-        if (currentRoomIndex in rooms.indices) {
-            val currentRoom = rooms[currentRoomIndex]
-            val (fromX, fromY) = currentRoom.findPlayerPosition(player)
-            if (currentRoom.isValidPosition(toX, toY)) {
-                currentRoom.movePlayer(player, fromX, fromY, toX, toY)
-                return true
-            } else {
-                println("Invalid move: ($toX, $toY) is out of bounds")
-                return false
-            }
-        } else {
+        if (currentRoomIndex !in rooms.indices) {
             println("Invalid room index")
             return false
         }
+
+        val currentRoom = rooms[currentRoomIndex]
+        val (fromX, fromY) = currentRoom.findPlayerPosition(player)
+
+        if (!currentRoom.isValidPosition(toX, toY)) {
+            println("Invalid move: ($toX, $toY) is out of bounds")
+            return false
+        }
+
+        if (currentRoom.getCell(toX, toY) is DoorCell) {
+            currentRoom.removePlayer(fromX, fromY)
+            currentRoomIndex = (currentRoomIndex + 1) % rooms.size
+            rooms[currentRoomIndex].placePlayer(player, toX, toY)
+            println("You moved to room $currentRoomIndex")
+        } else {
+            currentRoom.movePlayer(player, fromX, fromY, toX, toY)
+        }
+
+        return true
     }
     fun executeCommand(player: Player, command: Char): Boolean {
         val currentRoom = rooms[currentRoomIndex]
