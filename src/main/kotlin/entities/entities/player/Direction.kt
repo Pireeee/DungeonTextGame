@@ -1,4 +1,4 @@
-package fr.entities.entities
+package fr.entities.entities.player
 
 enum class Direction {
     NORTH, SOUTH, EAST, WEST;

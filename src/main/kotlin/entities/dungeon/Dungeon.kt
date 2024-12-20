@@ -2,7 +2,7 @@ package fr.entities.dungeon
 
 import fr.entities.DoorCell
 import fr.entities.MoveResult
-import fr.entities.entities.Player
+import fr.entities.entities.player.Player
 import fr.entities.room.Room
 
 class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){

@@ -3,6 +3,9 @@ package tests
 import fr.entities.*
 import fr.entities.dungeon.Dungeon
 import fr.entities.entities.*
+import fr.entities.entities.player.Direction
+import fr.entities.entities.player.Player
+import fr.entities.entities.player.PlayerClass
 import fr.entities.room.RoomBuilder
 import kotlin.test.Test
 import kotlin.test.assertTrue
