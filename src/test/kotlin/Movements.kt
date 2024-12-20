@@ -3,6 +3,8 @@ import fr.entities.*
 import fr.entities.dungeon.Dungeon
 import fr.entities.entities.*
 import fr.entities.room.RoomBuilder
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import kotlin.test.Test
 
 class MovementsTests{
@@ -23,7 +25,7 @@ class MovementsTests{
         //when
         val playerMoved = dungeon.executeCommand(player, 'E')
         //then
-        assert(playerMoved)
+        assertTrue(playerMoved)
     }
     //Déplacement vers une case contenant un monstre
     @Test
@@ -38,7 +40,7 @@ class MovementsTests{
         //when
         val playerMoved = dungeon.executeCommand(player, 'S')
         //then
-        assert(playerMoved)
+        assertTrue(playerMoved)
     }
     //Tentative de déplacement hors de la grille
     @Test
@@ -52,7 +54,7 @@ class MovementsTests{
         //when
         val playerMoved = dungeon.executeCommand(player, 'N')
         //then
-        assert(!playerMoved)
+        assertTrue(!playerMoved)
     }
     //Tentative de déplacement multiple
     @Test
@@ -72,12 +74,7 @@ class MovementsTests{
             dungeon.displayCurrentRoom()
         }
         //then
-        if(dungeon.rooms[0].getCell(1,2) is PlayerCell){
-            assert(true)
-        }
-        else{
-            assert(false)
-        }
+        assertTrue(dungeon.rooms[0].getCell(1, 2) is PlayerCell)
     }
     //Rencontre d'un trésor lors du déplacement
     @Test
@@ -93,12 +90,7 @@ class MovementsTests{
         //when
         val playerMoved = dungeon.executeCommand(player, 'S')
         //then
-        if (dungeon.rooms[0].getCell(1,3) is PlayerCell && playerMoved){
-            assert(true)
-        }
-        else{
-            assert(false)
-        }
+        assertTrue(dungeon.rooms[0].getCell(1, 3) is PlayerCell && playerMoved)
 
     }
     //Déplacement bloqué par un obstacle
@@ -115,11 +107,11 @@ class MovementsTests{
         //when
         val playerMoved = dungeon.executeCommand(player, 'S')
         //then
-        assert(!playerMoved)
+        assertFalse(playerMoved)
     }
     //Rotation et orientation du personnage
     @Test
-    fun `move the player orientation`() {
+    fun `When player moves to the cell in the orientation's direction, then it moves`() {
         //given
         val customRoom = RoomBuilder()
             .setRandom(false)
@@ -129,16 +121,11 @@ class MovementsTests{
         //when
         val playerMoved = dungeon.executeCommand(player, 'G')
         //then
-        if (playerMoved && player.direction == Direction.EAST){
-            assert(true)
-        }
-        else{
-            assert(false)
-        }
+        assertTrue(playerMoved && player.direction == Direction.EAST)
     }
     // Déplacement avec orientation
     @Test
-    fun `move the player to the cell in the orientation's direction`() {
+    fun `When player changes orientation, then it updates direction`() {
         //given
         player.direction = Direction.EAST
         val customRoom = RoomBuilder()
@@ -149,16 +136,11 @@ class MovementsTests{
         //when
         val playerMoved = dungeon.executeCommand(player, 'A')
         //then
-        if (playerMoved && dungeon.rooms[0].getCell(3,2) is PlayerCell){
-            assert(true)
-        }
-        else{
-            assert(false)
-        }
+        assertTrue(playerMoved && dungeon.rooms[0].getCell(3, 2) is PlayerCell)
     }
     // Série de commandes complexes
     @Test
-    fun `do a series of complexe movements`() {
+    fun `When player executes a series of complex movements, then it reaches the expected position`() {
         //given
         val customRoom = RoomBuilder()
             .setRandom(false)
@@ -172,11 +154,6 @@ class MovementsTests{
             dungeon.displayCurrentRoom()
         }
         //then
-        if(dungeon.rooms[0].getCell(1,4) is PlayerCell){
-            assert(true)
-        }
-        else{
-            assert(false)
-        }
+        assertTrue(dungeon.rooms[0].getCell(1, 4) is PlayerCell)
     }
 }

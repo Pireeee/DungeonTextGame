@@ -14,12 +14,7 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
     }
 
     private fun generateRooms(number: Int, size: Int, isRandom: Boolean): Array<Room> {
-        return Array(number) {
-            RoomBuilder()
-                .setSize(size)
-                .setRandom(isRandom)
-                .build()
-        }
+        return Array(number) { Room(size, isRandom) }
     }
 
     fun displayCurrentRoom(){

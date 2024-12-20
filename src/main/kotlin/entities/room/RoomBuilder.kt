@@ -7,7 +7,7 @@ import fr.entities.entities.Treasure
 
 class RoomBuilder {
     private var size: Int = 5
-    private var isRandom: Boolean = false
+    private var isRandom: Boolean = true
     private val entities: MutableList<Triple<Int, Int, Cell>> = mutableListOf()
 
     init {
