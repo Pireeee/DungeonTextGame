@@ -1,6 +1,5 @@
 package fr.entities
 
-import fr.entities.entities.Item
 import fr.entities.entities.Monster
 import fr.entities.entities.Player
 import fr.entities.entities.Treasure

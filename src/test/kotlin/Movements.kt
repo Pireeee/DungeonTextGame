@@ -1,10 +1,7 @@
 package tests
 import fr.entities.*
 import fr.entities.dungeon.Dungeon
-import fr.entities.entities.Monster
-import fr.entities.entities.Player
-import fr.entities.entities.PlayerClass
-import fr.entities.entities.Treasure
+import fr.entities.entities.*
 import fr.entities.room.RoomBuilder
 import kotlin.test.Test
 
@@ -120,24 +117,66 @@ class MovementsTests{
         //then
         assert(!playerMoved)
     }
-    //Gestion des limites de la grille
-    @Test
-    fun `move the player to an out of the grid cell`() {
-        // TODO
-    }
     //Rotation et orientation du personnage
     @Test
     fun `move the player orientation`() {
-        // TODO
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(2,2, player)
+            .build()
+        dungeon.setRoom(customRoom, 0)
+        //when
+        val playerMoved = dungeon.executeCommand(player, 'G')
+        //then
+        if (playerMoved && player.direction == Direction.EAST){
+            assert(true)
+        }
+        else{
+            assert(false)
+        }
     }
     // Déplacement avec orientation
     @Test
     fun `move the player to the cell in the orientation's direction`() {
-        // TODO
+        //given
+        player.direction = Direction.EAST
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(2,2, player)
+            .build()
+        dungeon.setRoom(customRoom, 0)
+        //when
+        val playerMoved = dungeon.executeCommand(player, 'A')
+        //then
+        if (playerMoved && dungeon.rooms[0].getCell(3,2) is PlayerCell){
+            assert(true)
+        }
+        else{
+            assert(false)
+        }
     }
     // Série de commandes complexes
     @Test
     fun `do a series of complexe movements`() {
-        // TODO
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(2,1, player)
+            .build()
+        dungeon.setRoom(customRoom, 0)
+        val directions = arrayOf('A', 'D', 'A', 'G', 'A', 'A')
+        //when
+        for (i in directions) {
+            dungeon.executeCommand(player, i)
+            dungeon.displayCurrentRoom()
+        }
+        //then
+        if(dungeon.rooms[0].getCell(1,4) is PlayerCell){
+            assert(true)
+        }
+        else{
+            assert(false)
+        }
     }
 }
