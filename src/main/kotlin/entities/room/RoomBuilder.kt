@@ -5,9 +5,17 @@ import fr.entities.entities.Player
 import fr.entities.*
 
 class RoomBuilder {
-    private var size: Int = 1
+    private var size: Int = 5
     private var isRandom: Boolean = false
     private val entities: MutableList<Triple<Int, Int, Cell>> = mutableListOf()
+
+    init {
+        for (i in 0 until size) {
+            for (j in 0 until size) {
+                entities.add(Triple(i, j, EmptyCell()))
+            }
+        }
+    }
 
     fun setSize(size: Int): RoomBuilder {
         this.size = size

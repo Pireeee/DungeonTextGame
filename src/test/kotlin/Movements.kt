@@ -5,6 +5,7 @@ import fr.entities.entities.Monster
 import fr.entities.entities.Player
 import fr.entities.entities.PlayerClass
 import fr.entities.room.RoomBuilder
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 
 class MovementsTests{
@@ -13,72 +14,68 @@ class MovementsTests{
     val player = Player("link", PlayerClass.WARRIOR)
     val dungeon = Dungeon(5, roomSize,false)
     val monster = Monster("Goblin")
-    val customRoom = RoomBuilder()
-        .setSize(roomSize)
-        .setRandom(false)
-        .placeEmpty(1,1)
-        .placeMonster(1,2, monster)
-        .placeTreasure(1,3, "Gold", 100)
-        .placePlayer(0,0, player)
-        .placeDoor(1,4)
-        .placeObstacle(4,0)
-        .placeObstacle(4,1)
-        .placeObstacle(4,2)
-        .placeObstacle(4,3)
-        .placeObstacle(4,4)
-        .build()
-    @Test
-    fun `move player on an empty cell`() {
-        dungeon.setRoom(customRoom, 0)
-        dungeon.displayCurrentRoom()
-        //test the cell 1,1 is an instence of empty cell
 
-        if(dungeon.rooms[0].getCell(1,1) is EmptyCell){
-            println("The cell 1,1 is empty")
-            assert(dungeon.movePlayerWithinRoom(player,1, 1))
-        }
-        else{
-            assert(false)
-        }
+    @Test
+    fun `When player try move to an empty cell, it move`() {
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(0,0, player)
+            .build()
+        dungeon.setRoom(customRoom, 0)
+        //when
+        val playerMoved = dungeon.executeCommand(player, 'E')
+        //then
+        assert(playerMoved)
     }
     //Déplacement vers une case contenant un monstre
     @Test
-    fun `move player on a monster cell`() {
+    fun `When player moves to monster cell, then it moves`() {
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(0,0, player)
+            .placeMonster(0,1, monster)
+            .build()
         dungeon.setRoom(customRoom, 0)
-        dungeon.displayCurrentRoom()
-        //test the cell 1,2 is an instence of monster cell
-        if(dungeon.rooms[0].getCell(1,2) is MonsterCell){
-            println("The cell 1,2 is a monster")
-            assert(dungeon.movePlayerWithinRoom(player, 1, 2))
-        }
-        else{
-            assert(false)
-        }
+        //when
+        val playerMoved = dungeon.executeCommand(player, 'S')
+        //then
+        assert(playerMoved)
     }
     //Tentative de déplacement hors de la grille
     @Test
-    fun `move player on a out of the grid cell`() {
+    fun `When player moves out of the grid, then it does not move`() {
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(0,0, player)
+            .build()
         dungeon.setRoom(customRoom, 0)
-        dungeon.displayCurrentRoom()
-        //test the cell 1,6 is out of the grid
-        if(dungeon.rooms[0].getCell(1,6) == null){
-            println("The cell 1,6 is out of the grid")
-            assert(!dungeon.movePlayerWithinRoom(player,1, 6))
-        }
-        else{
-            assert(true)
-        }
+        //when
+        val playerMoved = dungeon.executeCommand(player, 'N')
+        //then
+        assert(!playerMoved)
     }
-    //Tentative de déplacement hors de la grille
+    //Tentative de déplacement multiple
     @Test
-    fun `move the player multiple times`() {
+    fun `When player moves multiple times, then it reaches the expected position`() {
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(0,0, player)
+            .build()
         dungeon.setRoom(customRoom, 0)
         dungeon.displayCurrentRoom()
-        for (i in 0..3){
-            assert(dungeon.movePlayerWithinRoom(player, i, 1))
+        val directions = arrayOf('S', 'E', 'S')
+        //when
+
+        for (i in directions) {
+            dungeon.executeCommand(player, i)
             dungeon.displayCurrentRoom()
         }
-        if(dungeon.rooms[0].getCell(3,1) is PlayerCell){
+        //then
+        if(dungeon.rooms[0].getCell(1,2) is PlayerCell){
             assert(true)
         }
         else{
@@ -87,31 +84,41 @@ class MovementsTests{
     }
     //Rencontre d'un trésor lors du déplacement
     @Test
-    fun `move player on a treasure cell`() {
+    fun `When player moves to treasure cell, then it moves`() {
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(1,2, player)
+            .placeTreasure(1,3, "Gold", 100)
+            .build()
         dungeon.setRoom(customRoom, 0)
         dungeon.displayCurrentRoom()
-        //test the cell 1,3 is an instence of treasure cell
-        if(dungeon.rooms[0].getCell(1,3) is TreasureCell){
-            println("The cell 1,3 is a treasure")
-            assert(dungeon.movePlayerWithinRoom(player, 1, 3))
+        //when
+        val playerMoved = dungeon.executeCommand(player, 'S')
+        //then
+        if (dungeon.rooms[0].getCell(1,3) is PlayerCell && playerMoved){
+            assert(true)
         }
         else{
             assert(false)
         }
+
     }
     //Déplacement bloqué par un obstacle
     @Test
-    fun `move player to a obstacle cell`() {
+    fun `When player moves to obstacle cell, then it does not move`() {
+        //given
+        val customRoom = RoomBuilder()
+            .setRandom(false)
+            .placePlayer(1,3, player)
+            .placeObstacle(1,4)
+            .build()
         dungeon.setRoom(customRoom, 0)
         dungeon.displayCurrentRoom()
-        //test the cell 1,4 is an instence of door cell
-        if(dungeon.rooms[0].getCell(4,1) is ObstacleCell){
-            println("The cell 1,4 is an obstacle")
-            assert(!dungeon.movePlayerWithinRoom(player, 4, 1))
-        }
-        else{
-            assert(true)
-        }
+        //when
+        val playerMoved = dungeon.executeCommand(player, 'S')
+        //then
+        assert(!playerMoved)
     }
     //Gestion des limites de la grille
     @Test

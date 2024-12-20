@@ -2,8 +2,9 @@ package fr.entities.dungeon
 
 import fr.entities.entities.Player
 import fr.entities.room.Room
+import fr.entities.room.RoomBuilder
 
-class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean){
+class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
 
     var currentRoomIndex = 0
     val rooms = generateRooms(rooms, roomSize, isRandom)
@@ -11,8 +12,14 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean){
     init {
         require(rooms > 0 && roomSize > 0) { "Dungeon dimensions must be positive" }
     }
+
     private fun generateRooms(number: Int, size: Int, isRandom: Boolean): Array<Room> {
-        return Array(number) { Room(size, isRandom) }
+        return Array(number) {
+            RoomBuilder()
+                .setSize(size)
+                .setRandom(isRandom)
+                .build()
+        }
     }
 
     fun displayCurrentRoom(){
