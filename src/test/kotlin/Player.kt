@@ -8,6 +8,7 @@ import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertFalse
+import fr.entities.entities.returnPlayerInfoString
 
 class PlayerTest {
 
@@ -73,6 +74,28 @@ class PlayerTest {
 fun `create player, invalid player class`() {
     assertFails { Player("link", "oui", 10, 5, 100, 10) }
 }*/
+    @Test
+    fun `player infos are displayed correctly`() {
+        //given un warrior et les stats d'un warrior
+        val player = Player("Link", PlayerClass.WARRIOR)
+        val data = "Name: Link\n" +
+                "Class: WARRIOR\n" +
+                "Stats: Health: 100\n" +
+                "Mana: 50\n" +
+                "Strength: 10\n" +
+                "Intelligence: 5\n" +
+                "Defense: 10\n" +
+                "MagicDefence: 5\n" +
+                "Agility: 5\n" +
+                "Chance: 5\n" +
+                "Endurance: 5\n" +
+                "Spirit: 5\n"+
+                "Direction: SOUTH\n" +
+                "Inventory: []"
+        //When je renvoie les infos du joueur
+        //Then les infos du joueur sont les bonnes
+        assertEquals(data, returnPlayerInfoString(player))
+    }
 }
 
    

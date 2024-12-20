@@ -1,6 +1,8 @@
 package fr.entities.entities
 
+import kotlin.reflect.KProperty1
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.full.primaryConstructor
 
 interface BaseEntity {
     val name: String
@@ -9,7 +11,8 @@ interface BaseEntity {
 }
 fun BaseEntity.printStats() {
     println("\nTotal Stats:")
-    totalStats.printDynamicStats()
+    val stats = totalStats.getDynamicStatsString()
+    println(stats)
 }
 interface EntityStats {
     val health: Int
@@ -22,13 +25,27 @@ interface EntityStats {
     val chance: Int
     val endurance: Int
     val spirit: Int
-}
-fun EntityStats.printDynamicStats() {
-    this::class.memberProperties.forEach { property ->
-        // Vérifie que la propriété est bien de type Int avant de l'utiliser
-        val value = (property as? kotlin.reflect.KProperty1<EntityStats, Int>)?.get(this)
-        if (value != null) {
-            println("${property.name.capitalize()}: $value")
-        }
+    companion object {
+        val propertyOrder = listOf(
+            "health",
+            "mana",
+            "strength",
+            "intelligence",
+            "defense",
+            "magicDefence",
+            "agility",
+            "chance",
+            "endurance",
+            "spirit"
+        )
     }
+}
+fun EntityStats.getDynamicStatsString(): String {
+    val propsByName = this::class.memberProperties.associateBy { it.name }
+
+    return EntityStats.propertyOrder.mapNotNull { propName ->
+        val property = propsByName[propName] as? KProperty1<EntityStats, Int>
+        val value = property?.get(this)
+        value?.let { "${propName.replaceFirstChar { it.uppercaseChar() }}: $value" }
+    }.joinToString("\n")
 }
