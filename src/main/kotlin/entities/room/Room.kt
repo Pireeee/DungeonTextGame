@@ -1,7 +1,7 @@
 package fr.entities.room
 
 import fr.entities.entities.Monster
-import fr.entities.entities.Player
+import fr.entities.entities.player.Player
 import fr.entities.*
 import fr.entities.entities.Treasure
 import fr.entities.entities.stats.WarriorStats

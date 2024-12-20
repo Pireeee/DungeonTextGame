@@ -1,7 +1,5 @@
-package fr.services
+package fr.entities.entities.player
 
-import fr.entities.entities.Player
-import fr.entities.entities.PlayerClass
 import fr.entities.entities.printStats
 
 class PlayerService {

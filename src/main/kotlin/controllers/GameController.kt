@@ -2,8 +2,8 @@ package fr.controllers
 
 import fr.entities.dungeon.Commands
 import fr.entities.dungeon.Dungeon
-import fr.entities.entities.Player
-import fr.entities.entities.returnPlayerInfoString
+import fr.entities.entities.player.Player
+import fr.entities.entities.player.returnPlayerInfoString
 import java.util.Scanner
 
 class GameController(private val player: Player, private val dungeon: Dungeon) {

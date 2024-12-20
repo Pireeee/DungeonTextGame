@@ -1,5 +1,6 @@
-package fr.entities.entities
+package fr.entities.entities.player
 
+import fr.entities.entities.*
 import fr.entities.entities.stats.MageStats
 import fr.entities.entities.stats.RogueStats
 import fr.entities.entities.stats.WarriorStats

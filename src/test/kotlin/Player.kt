@@ -1,18 +1,18 @@
 package tests
-import fr.services.checkName
-import fr.services.setPlayerClass
-import fr.entities.entities.Player
-import fr.entities.entities.PlayerClass
+import fr.entities.entities.player.checkName
+import fr.entities.entities.player.setPlayerClass
+import fr.entities.entities.player.Player
+import fr.entities.entities.player.PlayerClass
 import kotlin.test.Test
 import kotlin.reflect.full.memberProperties
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertFalse
-import fr.entities.entities.returnPlayerInfoString
+import fr.entities.entities.player.returnPlayerInfoString
 
 class PlayerTest {
 
-    val playerData = mapOf(
+    private val playerData = mapOf(
         "name" to "Link",
         "playerClass" to PlayerClass.WARRIOR
     )
