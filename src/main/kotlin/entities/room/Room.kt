@@ -12,11 +12,10 @@ class Room(val size: Int, isRandom: Boolean) {
     private val grid: Array<Array<Cell>> = generateGrid(size, isRandom)
 
     fun getCell(x: Int, y: Int): Cell? {
-        return if (x in 0 until size && y in 0 until size) {
-            grid[x][y]
-        } else {
-            null
+        if (x in 0 until size && y in 0 until size) {
+            return grid[x][y]
         }
+        return null
     }
 
     fun setCell(x: Int, y: Int, cell: Cell) {
