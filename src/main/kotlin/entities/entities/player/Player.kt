@@ -7,19 +7,20 @@ import fr.entities.entities.stats.WarriorStats
 
 class Player(
     override val name: String,
-    val playerClass: PlayerClass,
-    var direction: Direction = Direction.SOUTH,
+    override val playerClass: PlayerClass,
+    override var direction: Direction = Direction.SOUTH,
     override var baseStats: EntityStats = findStatsByClass(playerClass),
     override var totalStats: EntityStats = baseStats,
-    var inventory: MutableList<Treasure> = mutableListOf()
-): BaseEntity {
+    override var inventory: MutableList<Treasure> = mutableListOf(),
+
+): PlayerInterface {
     init {
         require(name.length in 3..15) { "Name must be between 3 and 15 characters." }
         require( playerClass in PlayerClass.values()) { "Invalid class" }
         totalStats = baseStats
     }
 
-    fun moveForward(): Pair<Int, Int> {
+    override fun moveForward(): Pair<Int, Int> {
         return when (direction) {
             Direction.NORTH -> Pair(0, -1)
             Direction.SOUTH -> Pair(0, 1)
@@ -28,15 +29,15 @@ class Player(
         }
     }
 
-    fun turnLeft() {
+    override fun turnLeft() {
         direction = direction.turnLeft()
     }
 
-    fun turnRight() {
+    override fun turnRight() {
         direction = direction.turnRight()
     }
 
-    fun pickUpTreasure(treasure: Treasure) {
+    override fun pickUpTreasure(treasure: Treasure) {
         println("$name picked up ${treasure.name}")
         inventory.add(treasure)
     }
