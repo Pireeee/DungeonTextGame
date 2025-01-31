@@ -1,4 +1,4 @@
-##La classe Room a trop de responsabilités :
+## La classe Room a trop de responsabilités :
 - Gestion de la grille
 - Affichage
 - Gestion des déplacements du joueur
