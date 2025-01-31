@@ -1,121 +1,23 @@
-package fr.entities.room
-
-import fr.entities.entities.Monster
+import entities.room.RoomDisplay
+import fr.entities.Cell
+import fr.entities.Grid
+import fr.entities.entities.TreasureManagement
 import fr.entities.entities.player.Player
-import fr.entities.*
-import fr.entities.entities.Treasure
-import fr.entities.entities.stats.WarriorStats
-import kotlin.random.Random
+import fr.entities.entities.player.PlayerMovement
 
-class Room(val size: Int, isRandom: Boolean) {
+class Room(size: Int, isRandom: Boolean) {
+    private val grid = Grid(size, isRandom)
+    private val display = RoomDisplay(grid)
+    private val playerMovement = PlayerMovement(grid)
+    private val treasureManagement = TreasureManagement(grid)
 
-    private val grid: Array<Array<Cell>> = generateGrid(size, isRandom)
-
-    fun getCell(x: Int, y: Int): Cell? {
-        if (x in 0 until size && y in 0 until size) {
-            return grid[x][y]
-        }
-        return null
-    }
-
-    fun setCell(x: Int, y: Int, cell: Cell) {
-        if (x in 0 until size && y in 0 until size) {
-            grid[x][y] = cell
-        }
-    }
-
-    private fun generateGrid(size: Int, isRandom: Boolean): Array<Array<Cell>> {
-        val monsterCell = MonsterCell(Monster("Goblin", WarriorStats(), WarriorStats()))
-        val treasureCell = TreasureCell(Treasure("Gold", 100))
-        val doorCell = DoorCell()
-        val emptyCells: Array<Array<Cell>> = Array(size) { Array(size) { EmptyCell() } }
-
-        // Create a list of all possible coordinates
-        val coordinates = mutableListOf<Pair<Int, Int>>()
-        for (x in 1 until size) {
-            for (y in 1 until size) {
-                coordinates.add(Pair(x, y))
-            }
-        }
-
-        // Shuffle the list to randomize the order with a unique seed
-        if (isRandom){
-            coordinates.shuffle(Random(System.nanoTime()))
-        }
-
-        // Place the special cells at the first few coordinates
-        val (monsterX, monsterY) = coordinates[0]
-        emptyCells[monsterX][monsterY] = monsterCell
-
-        val (treasureX, treasureY) = coordinates[1]
-        emptyCells[treasureX][treasureY] = treasureCell
-
-        val (doorX, doorY) = coordinates[2]
-        emptyCells[doorX][doorY] = doorCell
-
-        return emptyCells
-    }
-
-    fun display() {
-        // Print column headers
-        print("   ")
-        for (x in 0 until size) {
-            print(" $x ")
-        }
-        println()
-
-        for (y in 0 until size) {
-            // Print row header
-            print(" $y ")
-
-            for (x in 0 until size) {
-                val cell = getCell(x, y)
-                val symbol = cell?.displayChar ?: " "
-                print(" $symbol ")
-            }
-            println()
-        }
-        println() // Separate rooms with a blank line
-    }
-
-    fun placePlayer(player: Player, x: Int = 0, y: Int = 0) {
-        if(isValidPosition(x, y)){
-            if(checkTreasure(x, y)){
-                val treasure = getCell(x, y) as TreasureCell
-                player.pickUpTreasure(treasure.treasure)
-            }
-            setCell(x, y, PlayerCell(player))
-        }
-    }
-
-    fun removePlayer(x: Int, y: Int) {
-        setCell(x, y, EmptyCell())
-    }
-
-    fun movePlayer(player: Player, fromX: Int, fromY: Int, toX: Int, toY: Int) {
-        removePlayer(fromX, fromY)
-        placePlayer(player, toX, toY)
-    }
-
-    fun findPlayerPosition(player: Player): Pair<Int, Int> {
-        for (x in 0 until size) {
-            for (y in 0 until size) {
-                val cell = getCell(x, y)
-                if (cell is PlayerCell && cell.player == player) {
-                    return Pair(x, y)
-                }
-            }
-        }
-        System.err.println("Player not found in room")
-        return Pair(-1, -1)
-    }
-
-    fun isValidPosition(x: Int, y: Int): Boolean {
-        return x in 0 until size && y in 0 until size && getCell(x, y) !is ObstacleCell
-    }
-
-    fun checkTreasure(x: Int, y: Int): Boolean {
-        return getCell(x, y) is TreasureCell
-    }
+    fun getCell(x: Int, y: Int): Cell? = grid.getCell(x, y)
+    fun setCell(x: Int, y: Int, cell: Cell) = grid.setCell(x, y, cell)
+    fun display() = display.display()
+    fun placePlayer(player: Player, x: Int = 0, y: Int = 0) = playerMovement.placePlayer(player, x, y)
+    fun removePlayer(x: Int, y: Int) = playerMovement.removePlayer(x, y)
+    fun movePlayer(player: Player, fromX: Int, fromY: Int, toX: Int, toY: Int) = playerMovement.movePlayer(player, fromX, fromY, toX, toY)
+    fun findPlayerPosition(player: Player): Pair<Int, Int> = playerMovement.findPlayerPosition(player)
+    fun isValidPosition(x: Int, y: Int): Boolean = grid.isValidPosition(x, y)
+    fun checkTreasure(x: Int, y: Int): Boolean = treasureManagement.checkTreasure(x, y)
 }
-

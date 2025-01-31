@@ -1,9 +1,10 @@
 package fr.entities.dungeon
 
+import Room
 import fr.entities.DoorCell
 import fr.entities.MoveResult
 import fr.entities.entities.player.Player
-import fr.entities.room.Room
+
 
 class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
 
@@ -77,6 +78,10 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
             Commands.DROITE -> {
                 player.turnRight()
                 MoveResult.CHANGED_DIRECTION
+            }
+            Commands.FORWARD -> {
+                val (dx, dy) = player.moveForward()
+                movePlayerWithinRoom(player, currentX + dx, currentY + dy)
             }
             else -> {
                 println("Invalid command")

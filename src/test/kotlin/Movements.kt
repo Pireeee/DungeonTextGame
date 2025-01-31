@@ -1,6 +1,7 @@
 package tests
 
 import fr.entities.*
+import fr.entities.dungeon.Commands
 import fr.entities.dungeon.Dungeon
 import fr.entities.entities.*
 import fr.entities.entities.player.Direction
@@ -22,7 +23,7 @@ class MovementsTests {
         val customRoom = RoomBuilder().setRandom(false).placePlayer(0, 0, player).build()
         dungeon.setRoom(customRoom, 0)
         // When
-        val playerMoved = dungeon.executeCommand(player, 'E')
+        val playerMoved = dungeon.executeCommand(player, Commands.EAST)
         // Then
         assertTrue(playerMoved == MoveResult.MOVED_WITHIN_ROOM)
     }
@@ -37,7 +38,7 @@ class MovementsTests {
             .build()
         dungeon.setRoom(customRoom, 0)
         // When
-        val playerMoved = dungeon.executeCommand(player, 'S')
+        val playerMoved = dungeon.executeCommand(player, Commands.SOUTH)
         // Then
         assertTrue(playerMoved == MoveResult.MOVED_WITHIN_ROOM)
     }
@@ -48,7 +49,7 @@ class MovementsTests {
         val customRoom = RoomBuilder().setRandom(false).placePlayer(0, 0, player).build()
         dungeon.setRoom(customRoom, 0)
         // When
-        val playerMoved = dungeon.executeCommand(player, 'N')
+        val playerMoved = dungeon.executeCommand(player, Commands.NORTH)
         // Then
         assertTrue(playerMoved == MoveResult.NOT_ALLOWED)
     }
@@ -58,7 +59,7 @@ class MovementsTests {
         // Given
         val customRoom = RoomBuilder().setRandom(false).placePlayer(0, 0, player).build()
         dungeon.setRoom(customRoom, 0)
-        val directions = arrayOf('S', 'E', 'S')
+        val directions = arrayOf(Commands.SOUTH, Commands.EAST, Commands.SOUTH)
         // When
         for (i in directions) {
             dungeon.executeCommand(player, i)
@@ -78,7 +79,7 @@ class MovementsTests {
             .build()
         dungeon.setRoom(customRoom, 0)
         // When
-        val playerMoved = dungeon.executeCommand(player, 'S')
+        val playerMoved = dungeon.executeCommand(player, Commands.SOUTH)
         // Then
         assertTrue(player.inventory.size == 1 && playerMoved == MoveResult.MOVED_WITHIN_ROOM)
     }
@@ -93,7 +94,7 @@ class MovementsTests {
             .build()
         dungeon.setRoom(customRoom, 0)
         // When
-        val playerMoved = dungeon.executeCommand(player, 'S')
+        val playerMoved = dungeon.executeCommand(player, Commands.SOUTH)
         // Then
         assertTrue(playerMoved == MoveResult.NOT_ALLOWED)
     }
@@ -104,7 +105,7 @@ class MovementsTests {
         val customRoom = RoomBuilder().setRandom(false).placePlayer(2, 2, player).build()
         dungeon.setRoom(customRoom, 0)
         // When
-        val playerMoved = dungeon.executeCommand(player, 'A')
+        val playerMoved = dungeon.executeCommand(player, Commands.FORWARD)
         // Then
         assertTrue(playerMoved == MoveResult.MOVED_WITHIN_ROOM)
     }
@@ -116,7 +117,7 @@ class MovementsTests {
         val customRoom = RoomBuilder().setRandom(false).placePlayer(2, 2, player).build()
         dungeon.setRoom(customRoom, 0)
         // When
-        val playerMoved = dungeon.executeCommand(player, 'D')
+        val playerMoved = dungeon.executeCommand(player, Commands.DROITE)
         // Then
         assertTrue(playerMoved == MoveResult.CHANGED_DIRECTION)
     }
@@ -126,7 +127,7 @@ class MovementsTests {
         // Given
         val customRoom = RoomBuilder().setRandom(false).placePlayer(2, 1, player).build()
         dungeon.setRoom(customRoom, 0)
-        val directions = arrayOf('A', 'D', 'A', 'G', 'A', 'A')
+        val directions = arrayOf(Commands.FORWARD, Commands.DROITE, Commands.FORWARD, Commands.GAUCHE, Commands.FORWARD, Commands.FORWARD)
         // When
         for (i in directions) {
             dungeon.executeCommand(player, i)

@@ -1,5 +1,6 @@
 package fr.entities.room
 
+import Room
 import fr.entities.entities.Monster
 import fr.entities.entities.player.Player
 import fr.entities.*
