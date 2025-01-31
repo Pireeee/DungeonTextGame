@@ -62,58 +62,7 @@ class Dungeon(rooms: Int, roomSize: Int, isRandom:Boolean = true){
         currentRoom.movePlayer(player, fromX, fromY, toX, toY)
         return MoveResult.MOVED_WITHIN_ROOM
     }
-    fun executeCommand(player: Player, command: Commands?): MoveResult {
-        val currentRoom = roomsArray[currentRoomIndex]
-        val (currentX, currentY) = currentRoom.findPlayerPosition(player)
-// add independant function for left/right
-        return when (command) {
-            Commands.NORTH -> movePlayerWithinRoom(player, currentX, currentY - 1)
-            Commands.SOUTH -> movePlayerWithinRoom(player, currentX, currentY + 1)
-            Commands.EAST -> movePlayerWithinRoom(player, currentX + 1, currentY)
-            Commands.WEST -> movePlayerWithinRoom(player, currentX - 1, currentY)
-            Commands.GAUCHE -> {
-                player.turnLeft()
-                MoveResult.CHANGED_DIRECTION
-            }
-            Commands.DROITE -> {
-                player.turnRight()
-                MoveResult.CHANGED_DIRECTION
-            }
-            Commands.FORWARD -> {
-                val (dx, dy) = player.moveForward()
-                movePlayerWithinRoom(player, currentX + dx, currentY + dy)
-            }
-            else -> {
-                println("Invalid command")
-                MoveResult.NOT_ALLOWED
-            }
-        }
-    }
 
-    /*fun executeCommand(player: Player, command: Char): MoveResult {
-        val currentRoom = roomsArray[currentRoomIndex]
-        val (currentX, currentY) = currentRoom.findPlayerPosition(player)
-
-        if (command == 'N') return movePlayerWithinRoom(player, currentX, currentY - 1)
-        if (command == 'S') return movePlayerWithinRoom(player, currentX, currentY + 1)
-        if (command == 'E') return movePlayerWithinRoom(player, currentX + 1, currentY)
-        if (command == 'O') return movePlayerWithinRoom(player, currentX - 1, currentY)
-        if (command == 'A') {
-            val (dx, dy) = player.moveForward()
-            return movePlayerWithinRoom(player, currentX + dx, currentY + dy)
-        }
-        if (command == 'G') {
-            player.turnLeft()
-            return MoveResult.CHANGED_DIRECTION
-        }
-        if (command == 'D') {
-            player.turnRight()
-            return MoveResult.CHANGED_DIRECTION
-        }
-
-        println("Invalid command")
-        return MoveResult.NOT_ALLOWED
-    }*/
 }
 
 

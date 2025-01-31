@@ -1,7 +1,7 @@
 package fr.controllers
 
-import fr.entities.dungeon.Commands
-import fr.entities.dungeon.Dungeon
+import fr.entities.MoveResult
+import fr.entities.dungeon.*
 import fr.entities.entities.player.Player
 import fr.entities.entities.player.returnPlayerInfoString
 import java.util.Scanner
@@ -10,42 +10,50 @@ class GameController(private val player: Player, private val dungeon: Dungeon) {
 
     private val scanner = Scanner(System.`in`)
 
+    private val commandMap: Map<Char, Command> = mapOf(
+        'N' to MoveNorthCommand(),
+        'S' to MoveSouthCommand(),
+        'E' to MoveEastCommand(),
+        'O' to MoveWestCommand(),
+        'G' to TurnLeftCommand(),
+        'D' to TurnRightCommand(),
+        'A' to MoveForwardCommand(),
+        'Q' to QuitCommand(),
+        'I' to InfoCommand()
+    )
+
     fun startGame() {
-    while (true) {
-        clearTerminal()
-        displayHeader()
-        dungeon.displayCurrentRoom()
-        println("Enter a command (N, S, E, O, G, D, A) or I for info or Q to quit: ")
-        val input = scanner.next().uppercase().first()
-        val command = try {
-            Commands.fromChar(input)
-        } catch (e: IllegalArgumentException) {
-            println("Invalid command")
-            continue
-        }
-        when (command) {
-            Commands.QUIT -> {
-                println("Exiting game. Goodbye!")
-                break
-            }/*
-            Commands.SAVE -> saveGame()
-            Commands.LOAD -> loadGame()*/
-            Commands.INFOS -> displayPlayerInfo(player)
-            else -> {
-                val moveResult = dungeon.executeCommand(player, command)
-                if (moveResult == fr.entities.MoveResult.END_OF_DUNGEON) {
+        while (true) {
+            clearTerminal()
+            displayHeader()
+            dungeon.displayCurrentRoom()
+            println("Enter a command (N, S, E, O, G, D, A) or I for info or Q to quit: ")
+            val input = scanner.next().uppercase().first()
+            val command = commandMap[input]
+            if (command != null) {
+                val moveResult = command.execute(player, dungeon)
+                if (moveResult == MoveResult.END_OF_GAME) {
+                    println("Game over!")
+                    break
+                }
+                if (moveResult == MoveResult.MOVED_WITHIN_ROOM) {
+                    displayPlayerInfo(player)
+                }
+                if (moveResult == MoveResult.END_OF_DUNGEON) {
                     println("Congratulations! You have reached the end of the dungeon.")
                     break
                 }
+            } else {
+                println("Invalid command")
             }
         }
     }
-}
 
     private fun clearTerminal() {
         //flush terminal
         System.out.flush()
     }
+
     private fun displayHeader() {
         println("Dungeon Game")
         println("------------")
@@ -55,9 +63,8 @@ class GameController(private val player: Player, private val dungeon: Dungeon) {
         println("")
     }
 
-    private fun displayPlayerInfo(player:Player) {
+    private fun displayPlayerInfo(player: Player) {
         val data = returnPlayerInfoString(player)
         println(data)
     }
-
 }
